@@ -4,16 +4,16 @@ public class Node<T> {
 	
 	
 	public T data;
-	public node<T> next;
+	public Node<T> next;
 	
 	
-	public node () {
+	public Node () {
 		data = null;
 		next = null;
 		
 	}
 	
-	public node(T val) {
+	public Node(T val) {
 		
 		data = val;
 		next =null;
