@@ -75,3 +75,5 @@ public class LinkedList<T> {
 			current = current.next;
 	}
 }
+
+//same as slides
