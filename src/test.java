@@ -8,10 +8,14 @@ public static void main(String[] args) {
 	
 	String file = "src\\dataset.csv";
 	String file2 = "src\\stop.txt";
+	
+	
 	BufferedReader reader =null;
 	BufferedReader remover =null;
+	
 	String line;    
 	String rmline;
+	Boolean tmp;
 	LinkedList<String> words = new LinkedList<String>();
 	
 	
@@ -29,12 +33,23 @@ public static void main(String[] args) {
 		line = reader.readLine().substring(2);
 		String temp[] = line.split(" ");
 		
-		
+		tmp = false;
 		
 		for (String index :temp) 
 		{	
 			index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-			System.out.println(index);
+			
+			while (   (rmline = remover.readLine())!=null ) {
+				
+				
+				if (index.equalsIgnoreCase(rmline))
+					tmp = true;
+				}
+			
+			if (!tmp)
+				// add to bst if already there add index to the linklist which is the data of bst
+			
+			
 		}
 		
 		
