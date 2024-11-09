@@ -41,18 +41,14 @@ public class test {
 				}
 
 				if (!tmp) {
-
+					
 					words.insert(index);
 				}
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
-				// add to bst if already there add index to the linklist which is the data of
-				// bst
-
-				// }
+				
 
 			}
-			words.display();
 
 		} catch (Exception e) {
 
