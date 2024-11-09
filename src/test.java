@@ -49,7 +49,8 @@ public class test {
 				//test
 
 			}
-
+			words.display();
+			//testing vs push and pull
 		} catch (Exception e) {
 
 		}
