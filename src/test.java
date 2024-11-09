@@ -16,6 +16,8 @@ public class test {
 		String rmline;
 		Boolean tmp;
 		LinkedList<String> words = new LinkedList<String>();
+		BST<Integer> invert = new BST<Integer>();
+		
 
 		try {
 
@@ -24,13 +26,12 @@ public class test {
 
 			line = reader.readLine();
 
-			// for (int i=0;i<50;i++){
+			 for (int i=0;i<50;i++){
 
 			line = reader.readLine().substring(2);
 			String temp[] = line.split(" ");
 
 			tmp = false;
-
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
@@ -41,15 +42,20 @@ public class test {
 				}
 
 				if (!tmp) {
-					
-					words.insert(index);
+					System.out.println(index);
+				invert.insert(index,i);
 				}
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
-				//test
-
+				
 			}
-			words.display();
+		System.out.println("without errors");
+			
+		
+		}
+		System.out.println("Reached");
+
+
 			//testing vs push and pull
 		} catch (Exception e) {
 
