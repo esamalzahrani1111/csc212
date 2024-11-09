@@ -32,6 +32,7 @@ public class test {
 			String temp[] = line.split(" ");
 
 			tmp = false;
+
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
@@ -47,13 +48,14 @@ public class test {
 				}
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
-				
 			}
-		System.out.println("without errors");
-			
 		
-		}
-		System.out.println("Reached");
+		}System.out.println("Made an inverted BST");
+
+
+		
+		invert.searchAndPrint("shift");
+		
 
 
 			//testing vs push and pull

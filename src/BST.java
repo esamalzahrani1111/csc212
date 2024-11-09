@@ -45,11 +45,11 @@ public class BST <T> {
 			
             Node<T> temp;
             temp = current.data;
-            while(temp.data != null){
-                temp = temp.next;
-            }
-            temp = new Node<T>(val);
-            current = q;  // findkey() modified current
+            while(temp.next != null){
+              temp = temp.next;
+             }
+            temp.next = new Node<T>(val);
+           current = q;  // findkey() modified current
 			return false; // key already in the BST
 		}
 		
