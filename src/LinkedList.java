@@ -74,6 +74,19 @@ public class LinkedList<T> {
 		else
 			current = current.next;
 	}
+ 
+ 
+ public void display() {
+	 
+	 
+	 Node tmp = current;
+     current = head;
+     while (current != null) {
+         System.out.println(current.data);
+         current = current.next;
+     }
+     current = tmp;
+ }
 }
 
 //same as slides
