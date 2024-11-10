@@ -43,20 +43,19 @@ public class test {
 				}
 
 				if (!tmp) {
-					System.out.println(index);
 				invert.insert(index,i);
 				}
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
 			}
 		
-		}System.out.println("Made an inverted BST");
+		}
+		System.out.println("Made an inverted BST");
 
 
+		System.out.println("Testing search and print for the word ai");
+	invert.searchAndPrint("ai");                         //method search and print searchs for the key word then prints the docs which has it 
 		
-		invert.searchAndPrint("shift");
-		
-
 
 			//testing vs push and pull
 		} catch (Exception e) {
