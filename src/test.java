@@ -19,7 +19,7 @@ public class test {
 		BST<Integer> invert = new BST<Integer>();
 		
 
-		try {
+		try { // add read from file
 
 			reader = new BufferedReader(new FileReader(file));
 			remover = new BufferedReader(new FileReader(file2));
@@ -34,7 +34,7 @@ public class test {
 			tmp = false;
 
 			for (String index : temp) {
-				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
 
 				while ((rmline = remover.readLine()) != null) {
 
