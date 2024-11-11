@@ -36,7 +36,7 @@ public class test {
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
 
-				while ((rmline = remover.readLine()) != null) {
+				while ((rmline = remover.readLine()) != null) { // add if true stop
 
 					if (index.equalsIgnoreCase(rmline))
 						tmp = true;
