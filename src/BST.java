@@ -141,5 +141,42 @@ public class BST <T extends Comparable<T>> {
 	}
 
 
+		public LinkedList<T> processOrQuery(String word1, String word2) {
+		
+		LinkedList<T> list1 = searchToList(word1.toLowerCase());
+		LinkedList<T> list2 = searchToList(word2.toLowerCase());
+		LinkedList<T> result = new LinkedList<T>();
+
+		list1.findfirst();
+		list2.findfirst();
+		
+		int i = 0;
+		int j = 0;
+		int size1 =list1.size();
+		int size2 =list2.size();
+		
+		while (i < size1|| j < size2) {
+            if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
+                result.insert(list1.retrieve());
+                list1.findnext();
+                i++;
+            } else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
+                result.insert(list2.retrieve());
+                list2.findnext();
+                j++;
+            } else {
+                result.insert(list1.retrieve());
+                list1.findnext();
+                list2.findnext();
+                i++;
+                j++;
+            }
+        }
+        return result;
+    }
+
+	
+
+
 
 }
