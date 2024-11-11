@@ -1,4 +1,4 @@
-public class BST <T> {
+public class BST <T extends Comparable<T>> {
 	BSTNode<T> root, current;
 	
 	/** Creates a new instance of BST */
@@ -85,6 +85,60 @@ public class BST <T> {
         else 
         System.out.println("no node with this key");
     }
+
+   	public LinkedList<T> searchToList(String k) {
+
+		if (findkey(k)) {
+			LinkedList<T> DocList = new LinkedList<T>();
+
+			Node<T> temp = current.data;
+
+			while (temp != null) {
+
+				DocList.insert(temp.data);
+				temp = temp.next;
+			}
+			return DocList;
+
+		} else {
+			System.out.println("no node with this key");
+			return null;
+		}
+
+	}
+
+
+		public LinkedList<T> processAndQuery(String word1, String word2) {
+
+		LinkedList<T> List1 = searchToList(word1.toLowerCase());
+		LinkedList<T> List2 = searchToList(word2.toLowerCase());
+		LinkedList<T> result = new LinkedList<T>();
+
+		List1.findfirst();
+		List2.findfirst();
+		
+		int i = 0;
+		int j = 0;
+
+		while ((i < List1.size()) && (j < List2.size())) {
+			if ((List1).retrieve().equals(List2.retrieve())) {
+				result.insert(List1.retrieve());
+				List1.findnext();
+				List2.findnext();
+				i++;
+				j++;
+			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {
+				List1.findnext();
+				i++;
+			} else {
+				List2.findnext();
+				j++;
+			}
+
+		}
+		return result;
+
+	}
 
 
 
