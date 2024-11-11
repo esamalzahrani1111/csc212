@@ -28,7 +28,7 @@ public class test {
 
 			 for (int i=0;i<50;i++){
 
-			line = reader.readLine().substring(2);
+			line = reader.readLine().substring(2); //change to first occurance of ,
 			String temp[] = line.split(" ");
 
 			tmp = false;
