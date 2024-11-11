@@ -69,7 +69,7 @@ public class BST <T extends Comparable<T>> {
 		}
 	}
 
-    public void searchAndPrint(String k){
+    public void searchAndPrint(String k){                  //used for testing ,not actually used in the program
 
         if (findkey(k)){
 
@@ -119,15 +119,16 @@ public class BST <T extends Comparable<T>> {
 		
 		int i = 0;
 		int j = 0;
-
-		while ((i < List1.size()) && (j < List2.size())) {
+		int list1size = List1.size();
+		int list2size = List2.size();
+		while ((i < list1size) && (j < list2size)) {       //changed here size check if error happened                            
 			if ((List1).retrieve().equals(List2.retrieve())) {
 				result.insert(List1.retrieve());
 				List1.findnext();
 				List2.findnext();
 				i++;
 				j++;
-			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {
+			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {                   //
 				List1.findnext();
 				i++;
 			} else {
