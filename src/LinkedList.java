@@ -1,5 +1,5 @@
 
-public class LinkedList<T> {
+public class LinkedList<T extends Comparable<T>> {
 	private Node<T> head;
 	private Node<T> current;
  
@@ -87,6 +87,17 @@ public class LinkedList<T> {
      }
      current = tmp;
  }
+	public int size() {
+		int counter = 0;
+		Node tmp = current;
+		current = head;
+		while(current != null) {
+			counter++;
+			current = current.next;
+		}
+		current = tmp;
+		return counter;
+	}
 }
 
 //same as slides
