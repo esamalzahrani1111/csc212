@@ -1,4 +1,4 @@
-public class BSTNode <T> {
+public class BSTNode <T extends Comparable<T>> {
 	public String key;
 	public Node<T> data;
 	public BSTNode<T> left, right;
