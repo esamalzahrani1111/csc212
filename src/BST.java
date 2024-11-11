@@ -122,13 +122,13 @@ public class BST <T extends Comparable<T>> {
 		int list1size = List1.size();
 		int list2size = List2.size();
 		while ((i < list1size) && (j < list2size)) {       //changed here size check if error happened                            
-			if ((List1).retrieve().equals(List2.retrieve())) {
+			if ((List1).retrieve().equals(List2.retrieve())) {    //to remove duplicates check if its the last element in the linkedlist
 				result.insert(List1.retrieve());
 				List1.findnext();
 				List2.findnext();
 				i++;
 				j++;
-			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {                   //
+			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {                  
 				List1.findnext();
 				i++;
 			} else {
@@ -156,7 +156,7 @@ public class BST <T extends Comparable<T>> {
 		int size1 =list1.size();
 		int size2 =list2.size();
 		
-		while (i < size1|| j < size2) {
+		while (i < size1 || j < size2) {
             if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
                 result.insert(list1.retrieve());
                 list1.findnext();
