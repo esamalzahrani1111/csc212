@@ -113,10 +113,10 @@ public class BST<T extends Comparable<T>> {
 
 		for (String token : tokens) {
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				while (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
+				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) 
 					doQuery(docStk, opStk);
-				}
-				opStk.push(token);
+				else
+				    opStk.push(token);
 			} else
 				docStk.push(searchToList(token));
 		}
