@@ -56,15 +56,14 @@ public class test {
 		System.out.println("Testing search and print for the word ai");
 	invert.searchAndPrint("ai");                         //method search and print searchs for the key word then prints the docs which has it 
 
-			LinkedList l1 = invert.processAndQuery("market", "sports");   //test processAndQuery 
-			l1.display();
-			LinkedList l2 = invert.processAndQuery("weather", "warming");
-			l2.display();
-			LinkedList l3 = invert.processAndQuery("business", "world");
-			l3.display();
+			//LinkedList l1 = invert.processAndQuery("market", "sports");   //test processAndQuery 
+			//l1.display();
+			//LinkedList l2 = invert.processAndQuery("weather", "warming");
+			//l2.display();
+			//LinkedList l3 = invert.processAndQuery("business", "world");
+			//l3.display();
 		
 
-			//testing vs push and pull
 		} catch (Exception e) {
 
 		}
