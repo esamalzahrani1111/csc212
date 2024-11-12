@@ -1,5 +1,5 @@
 
-public class LinkedList<T extends Comparable<T>> {
+public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> current;
  
