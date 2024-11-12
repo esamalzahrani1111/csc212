@@ -22,4 +22,8 @@ public class Stack<T> {
 		return e;
     }
 
+    public T peek() {
+        return top.data;
+    }
+
 }
