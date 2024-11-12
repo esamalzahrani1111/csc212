@@ -1,64 +1,64 @@
-public class BST <T extends Comparable<T>> {
+public class BST<T extends Comparable<T>> {
 	BSTNode<T> root, current;
-	
+
 	/** Creates a new instance of BST */
 	public BST() {
 		root = current = null;
 	}
-	
+
 	public boolean empty() {
 		return root == null;
 	}
-	
+
 	public boolean full() {
 		return false;
 	}
-	
-	public T retrieve () {
+
+	public T retrieve() {
 		return current.data.data;
 	}
+
 	public boolean findkey(String tkey) {
-		BSTNode<T> p = root,q = root;
-				
-		if(empty())
+		BSTNode<T> p = root, q = root;
+
+		if (empty())
 			return false;
-		
-		while(p != null) {
+
+		while (p != null) {
 			q = p;
-			if(p.key.compareToIgnoreCase(tkey) == 0) {
+			if (p.key.compareToIgnoreCase(tkey) == 0) {
 				current = p;
 				return true;
-			}
-			else if(p.key.compareToIgnoreCase(tkey) > 0)
+			} else if (p.key.compareToIgnoreCase(tkey) > 0)
 				p = p.left;
 			else
 				p = p.right;
 		}
-		
+
 		current = q;
 		return false;
 	}
+
 	public boolean insert(String k, T val) {
 		BSTNode<T> p, q = current;
-		
-		if(findkey(k)) {
-			
-            Node<T> temp;
-            temp = current.data;
-            while(temp.next != null){
-              temp = temp.next;
-             }
-            temp.next = new Node<T>(val);
-           current = q;  // findkey() modified current
+
+		if (findkey(k)) {
+
+			Node<T> temp;
+			temp = current.data;
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = new Node<T>(val);
+			current = q; // findkey() modified current
 			return false; // key already in the BST
 		}
-		
+
 		p = new BSTNode<T>(k, val);
 		if (empty()) {
 			root = current = p;
 			return true;
-		}
-		else {
+		} else {
 			// current is pointing to parent of the new key
 			if (current.key.compareTo(k) > 0)
 				current.left = p;
@@ -69,24 +69,22 @@ public class BST <T extends Comparable<T>> {
 		}
 	}
 
-    public void searchAndPrint(String k){                  //used for testing ,not actually used in the program
+	public void searchAndPrint(String k) {
 
-        if (findkey(k)){
+		if (findkey(k)) {
 
-        Node<T> temp = current.data;
+			Node<T> temp = current.data;
 
-        while(temp != null)
-        {
-            System.out.println(temp.data);
-            temp = temp.next;
-        }
+			while (temp != null) {
+				System.out.print(temp.data + ",");
+				temp = temp.next;
+			}
 
-        }
-        else 
-        System.out.println("no node with this key");
-    }
+		} else
+			System.out.println("no node with this key");
+	}
 
-   	public LinkedList<T> searchToList(String k) {
+	public LinkedList<T> searchToList(String k) {
 
 		if (findkey(k)) {
 			LinkedList<T> DocList = new LinkedList<T>();
@@ -107,28 +105,48 @@ public class BST <T extends Comparable<T>> {
 
 	}
 
+	public LinkedList<T> booleanQuery(String query) {
 
-		public LinkedList<T> processAndQuery(String word1, String word2) {
+		Stack<LinkedList<T>> docStk = new Stack<LinkedList<T>>();
+		Stack<String> opStk = new Stack<String>();
+		String[] tokens = query.split("\\s+");
 
-		LinkedList<T> List1 = searchToList(word1.toLowerCase());
-		LinkedList<T> List2 = searchToList(word2.toLowerCase());
+		for (String token : tokens) {
+			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
+				while (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
+					doQuery(docStk, opStk);
+				}
+				opStk.push(token);
+			} else
+				docStk.push(searchToList(token));
+		}
+
+		while (!opStk.empty()) {
+			doQuery(docStk, opStk);
+		}
+		return docStk.pop();
+	}
+
+	private LinkedList<T> processAndQuery(LinkedList<T> word1, LinkedList<T> word2) {
+
+		LinkedList<T> List1 = word1;
+		LinkedList<T> List2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
 		List1.findfirst();
 		List2.findfirst();
-		
+
 		int i = 0;
 		int j = 0;
-		int list1size = List1.size();
-		int list2size = List2.size();
-		while ((i < list1size) && (j < list2size)) {       //changed here size check if error happened                            
-			if ((List1).retrieve().equals(List2.retrieve())) {    //to remove duplicates check if its the last element in the linkedlist
+
+		while ((i < List1.size()) && (j < List2.size())) {
+			if ((List1).retrieve().equals(List2.retrieve())) {
 				result.insert(List1.retrieve());
 				List1.findnext();
 				List2.findnext();
 				i++;
 				j++;
-			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {                  
+			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {
 				List1.findnext();
 				i++;
 			} else {
@@ -137,47 +155,87 @@ public class BST <T extends Comparable<T>> {
 			}
 
 		}
+		// Remove duplicates from the result
+		result.findfirst();
+		T last = null;
+		while (!result.last()) {
+			if (result.retrieve().equals(last)) {
+				result.remove();
+			} else {
+				last = result.retrieve();
+				result.findnext();
+			}
+		}
 		return result;
 
 	}
 
+	private LinkedList<T> processOrQuery(LinkedList<T> word1, LinkedList<T> word2) {
 
-		public LinkedList<T> processOrQuery(String word1, String word2) {
-		
-		LinkedList<T> list1 = searchToList(word1.toLowerCase());
-		LinkedList<T> list2 = searchToList(word2.toLowerCase());
+		LinkedList<T> list1 = word1;
+		LinkedList<T> list2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
 		list1.findfirst();
 		list2.findfirst();
-		
+
 		int i = 0;
 		int j = 0;
-		int size1 =list1.size();
-		int size2 =list2.size();
-		
+
+		int size1 = list1.size();
+		int size2 = list2.size();
+
 		while (i < size1 || j < size2) {
-            if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
-                result.insert(list1.retrieve());
-                list1.findnext();
-                i++;
-            } else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
-                result.insert(list2.retrieve());
-                list2.findnext();
-                j++;
-            } else {
-                result.insert(list1.retrieve());
-                list1.findnext();
-                list2.findnext();
-                i++;
-                j++;
-            }
-        }
-        return result;
-    }
+			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
+				result.insert(list1.retrieve());
+				list1.findnext();
+				i++;
+			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
+				result.insert(list2.retrieve());
+				list2.findnext();
+				j++;
+			} else {
+				result.insert(list1.retrieve());
+				list1.findnext();
+				list2.findnext();
+				i++;
+				j++;
+			}
+		}
+		// Remove duplicates from the result
+		result.findfirst();
+		T last = null;
+		while (!result.last()) {
+			if (result.retrieve().equals(last)) {
+				result.remove();
+			} else {
+				last = result.retrieve();
+				result.findnext();
+			}
+		}
 
-	
+		return result;
+	}
 
+	private void doQuery(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
 
+		LinkedList<T> right = docStk.pop();
+		LinkedList<T> left = docStk.pop();
+		String op = opStk.pop();
+
+		if (op.equals("AND")) {
+			docStk.push(processAndQuery(left, right));
+		} else if (op.equals("OR")) {
+			docStk.push(processOrQuery(left, right));
+		}
+	}
+
+	private int precedence(String op) {
+		if (op.equals("AND"))
+			return 2;
+		if (op.equals("OR"))
+			return 1;
+		return 0;
+	}
 
 }
