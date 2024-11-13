@@ -17,13 +17,13 @@ public class Stack<T> {
 		top = tmp;
 	}
     public T pop(){
-		T e = top.data;
+		T e = top.docId;
 		top = top.next;
 		return e;
     }
 
     public T peek() {
-        return top.data;
+        return top.docId;
     }
 
 }
