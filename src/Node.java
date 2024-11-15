@@ -1,22 +1,30 @@
+
 public class Node<T> {
 
-	public T docId;			// Document ID
-	public int frequency;	// Frequency of term in document
-	public Node<T> next;	// Pointer to next node
+	
+	
+	public T data;
+	public Node<T> next;
+	
 	
 	public Node () {
-		docId = null;
-		frequency = 0;
+		data = null;
 		next = null;
 		
 	}
 	
 	public Node(T val) {
 		
-		docId = val;
-		frequency = 1;
-		next = null;
-				
+		data = val;
+		next =null;
+		
+		
 	}
-
+	
+	
+	
+	
+	
+	
+	
 }
