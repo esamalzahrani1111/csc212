@@ -1,4 +1,5 @@
 public class BST<T extends Comparable<T>> {
+	
 	BSTNode<T> root, current;
 
 	/** Creates a new instance of BST */
@@ -15,10 +16,10 @@ public class BST<T extends Comparable<T>> {
 	}
 
 	public T retrieve() {
-		return current.data.data;
+		return current.data.docId;
 	}
 
-	public boolean findkey(String tkey) {
+	public boolean findKey(String tkey) {
 		BSTNode<T> p = root, q = root;
 
 		if (empty())
@@ -40,43 +41,67 @@ public class BST<T extends Comparable<T>> {
 	}
 
 	public boolean insert(String k, T val) {
-		BSTNode<T> p, q = current;
-
-		if (findkey(k)) {
-
-			Node<T> temp;
-			temp = current.data;
-			while (temp.next != null) {
-				temp = temp.next;
+		BSTNode<T> parent = null;
+		BSTNode<T> currentBSTNode = root;
+	
+		// find the correct position for the key in the BST
+		while (currentBSTNode != null) {
+			parent = currentBSTNode;
+			int cmp = k.compareTo(currentBSTNode.key);
+			if (cmp < 0) {
+				currentBSTNode = currentBSTNode.left;
+			} 
+			else if (cmp > 0) {
+				currentBSTNode = currentBSTNode.right;
+			} 
+			else {
+				break; // Key found
 			}
-			temp.next = new Node<T>(val);
-			current = q; // findkey() modified current
-			return false; // key already in the BST
 		}
-
-		p = new BSTNode<T>(k, val);
-		if (empty()) {
-			root = current = p;
-			return true;
-		} else {
-			// current is pointing to parent of the new key
-			if (current.key.compareTo(k) > 0)
-				current.left = p;
-			else
-				current.right = p;
-			current = p;
-			return true;
+	
+		if (currentBSTNode != null) { // Key exists
+			// update frequency or add new document
+			Node<T> docFreqNode = currentBSTNode.data;
+			
+			while (docFreqNode != null) {
+				if (docFreqNode.docId.equals(val)) {
+					docFreqNode.frequency++; // Increment frequency if document exists
+					return false;        // Key already exists; frequency updated
+				}
+				if (docFreqNode.next == null) {
+					break; // Reached end of the list
+				}
+				docFreqNode = docFreqNode.next;
+			}
+			// Document not found; add new Node with frequency 1
+			docFreqNode.next = new Node<T>(val);
+			return false; // Key already exists; new document added
+		}
+		else {
+			// Key does not exist; create a new BSTNode
+			BSTNode<T> newNode = new BSTNode<T>(k, val);
+			if (parent == null) {
+				root = newNode; // Tree was fully empty
+			} 
+			else {
+				if (k.compareTo(parent.key) < 0) {
+					parent.left = newNode;
+				} else {
+					parent.right = newNode;
+				}
+			}
+			return true; // New key inserted
 		}
 	}
-
+	
 	public void searchAndPrint(String k) {
 
-		if (findkey(k)) {
+		if (findKey(k)) {
 
 			Node<T> temp = current.data;
 
 			while (temp != null) {
-				System.out.print(temp.data + ",");
+				System.out.print(temp.docId + ",");
 				temp = temp.next;
 			}
 
@@ -86,14 +111,14 @@ public class BST<T extends Comparable<T>> {
 
 	public LinkedList<T> searchToList(String k) {
 
-		if (findkey(k)) {
+		if (findKey(k)) {
 			LinkedList<T> DocList = new LinkedList<T>();
 
 			Node<T> temp = current.data;
 
 			while (temp != null) {
 
-				DocList.insert(temp.data);
+				DocList.insert(temp.docId);
 				temp = temp.next;
 			}
 			return DocList;
