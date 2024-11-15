@@ -32,13 +32,13 @@ public class LinkedList<T> {
  
  public T retrieve() {
 	 
-	 return current.docId;
+	 return current.data;
 	 
  }
  public void update(T val) {
 	 
 	 
-	 current.docId = val;
+	 current.data = val;
  }
  
  
@@ -82,7 +82,7 @@ public class LinkedList<T> {
 	 Node tmp = current;
      current = head;
      while (current != null) {
-         System.out.println(current.docId);
+         System.out.println(current.data);
          current = current.next;
      }
      current = tmp;
