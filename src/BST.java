@@ -112,17 +112,26 @@ public class BST<T extends Comparable<T>> {
 		String[] tokens = query.split("\\s+");
 
 		for (String token : tokens) {
+
+
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) 
+				
+				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
+				
 					doQuery(docStk, opStk);
-				else
+			}
+				else{
 				    opStk.push(token);
+					
+				}
 			} else
 				docStk.push(searchToList(token));
 		}
 
 		while (!opStk.empty()) {
+			
 			doQuery(docStk, opStk);
+			
 		}
 		return docStk.pop();
 	}
@@ -223,17 +232,17 @@ public class BST<T extends Comparable<T>> {
 		LinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
 
-		if (op.equals("AND")) {
+		if (op.equalsIgnoreCase("AND")) {
 			docStk.push(processAndQuery(left, right));
-		} else if (op.equals("OR")) {
+		} else if (op.equalsIgnoreCase("OR")) {
 			docStk.push(processOrQuery(left, right));
 		}
 	}
 
 	private int precedence(String op) {
-		if (op.equals("AND"))
+		if (op.equalsIgnoreCase("AND"))
 			return 2;
-		if (op.equals("OR"))
+		if (op.equalsIgnoreCase("OR"))
 			return 1;
 		return 0;
 	}
