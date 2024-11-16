@@ -129,6 +129,22 @@ while (  current.docId != i && current.next != null){
 		current = tmp;
 		return counter;
 	}
+
+     private LinkedList<T> searchToList(String key) {
+        LinkedList<T> docList = new LinkedList<>();
+        current = head;
+        while (current != null) {
+            Node<T> temp = current.data;
+            while (temp != null) {
+                if (temp.data.toString().equalsIgnoreCase(key)) {
+                    docList.insert(current.docId);
+                }
+                temp = temp.next;
+            }
+            current = current.next;
+        }
+        return docList;
+    }
 }
 
 //same as slides
