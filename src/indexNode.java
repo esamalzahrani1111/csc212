@@ -1,17 +1,17 @@
-public class indexNode<T> {
-    public int docId;
-    public Node<T> data;
+public class indexNode<T,U> {
+    public T docId;
+    public Node<U> data;
 	public indexNode next;
 
 	public indexNode () {
-        docId = -1;
+        docId = null;
 		data = null;
 		next = null;
 	}
 
-	public indexNode (int id,T word) {
+	public indexNode (T id,U word) {
         docId = id;
-		data = new Node<T>(word);
+		data = new Node<U>(word);
 		next = null;
 	}
 

@@ -1,5 +1,5 @@
 
-public class invertedLinkedList<T> {
+public class invertedLinkedList<T extends Comparable<T>> {
 	private invertedNode<T> head;
 	private invertedNode<T> current;
  
@@ -137,7 +137,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		return docStk.pop();
 	}
 
-	private LinkedList<T> searchToList(String key) {
+	public LinkedList<T> searchToList(String key) {
 		search(key);
 		LinkedList<T> docList = new LinkedList<>();
 		if (current != null && current.word.compareToIgnoreCase(key) == 0) {

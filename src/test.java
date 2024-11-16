@@ -17,7 +17,7 @@ public class test {
 		Boolean tmp;
 		LinkedList<String> words = new LinkedList<String>();
 
-		indexLinkedList<String> normalIndex = new indexLinkedList<String>();
+		indexLinkedList<Integer,String> normalIndex = new indexLinkedList<Integer,String>();
 		invertedLinkedList<Integer> invertedIndex = new invertedLinkedList<>();
 		BST<Integer> invertedBST = new BST<Integer>();
 		
@@ -118,11 +118,13 @@ public class test {
 		
 		}
 		System.out.println("made an index");
+		normalIndex.booleanQuery("market and sports").display();
+	
 	
 		System.out.println("made an inverted index");
-	
+		invertedIndex.searchToList("market").display();
 		System.out.println("made an inverted BST");
-	
+		invertedBST.searchToList("market").display();
 		//	normalIndex.display();
 	//	System.out.println("Made an inverted BST");
 
