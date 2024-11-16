@@ -16,7 +16,10 @@ public class test {
 		String rmline;
 		Boolean tmp;
 		LinkedList<String> words = new LinkedList<String>();
-		BST<Integer> invert = new BST<Integer>();
+
+		indexLinkedList<String> normalIndex = new indexLinkedList<String>();
+		invertedLinkedList<Integer> invertedIndex = new invertedLinkedList<>();
+		BST<Integer> invertedBST = new BST<Integer>();
 		
 
 		try { // add read from file
@@ -43,14 +46,85 @@ public class test {
 				}
 
 				if (!tmp) {
-				invert.insert(index,i);
+				invertedBST.insert(index,i);
 				}
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
 			}
 		
 		}
-		System.out.println("Made an inverted BST");
+
+
+		reader = new BufferedReader(new FileReader(file));
+			remover = new BufferedReader(new FileReader(file2));
+
+			line = reader.readLine();
+
+
+			
+			for (int i=0;i<50;i++){
+
+				line = reader.readLine().substring(2); //change to first occurance of ,
+				String temp[] = line.split(" ");
+	
+				tmp = false;
+	
+				for (String index : temp) {
+					index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
+	
+					while ((rmline = remover.readLine()) != null) { // add if true stop
+	
+						if (index.equalsIgnoreCase(rmline))
+							tmp = true;
+					}
+	
+					if (!tmp) {
+						
+					normalIndex.insert(i,index);
+					}
+					remover = new BufferedReader(new FileReader(file2));
+					tmp = false;
+				}
+			
+			}
+
+			reader = new BufferedReader(new FileReader(file));
+			remover = new BufferedReader(new FileReader(file2));
+
+			line = reader.readLine();
+
+			 for (int i=0;i<50;i++){
+
+			line = reader.readLine().substring(2); //change to first occurance of ,
+			String temp[] = line.split(" ");
+
+			tmp = false;
+
+			for (String index : temp) {
+				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
+
+				while ((rmline = remover.readLine()) != null) { // add if true stop
+
+					if (index.equalsIgnoreCase(rmline))
+						tmp = true;
+				}
+
+				if (!tmp) {
+				invertedIndex.insert(index,i);
+				}
+				remover = new BufferedReader(new FileReader(file2));
+				tmp = false;
+			}
+		
+		}
+		System.out.println("made an index");
+	
+		System.out.println("made an inverted index");
+	
+		System.out.println("made an inverted BST");
+	
+		//	normalIndex.display();
+	//	System.out.println("Made an inverted BST");
 
 
 	//System.out.println("Testing search and print for the word ai");
