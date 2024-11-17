@@ -205,17 +205,7 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 			}
 
 		}
-		// Remove duplicates from the result
-		result.findfirst();
-		T last = null;
-		while (!result.last()) {
-			if (result.retrieve().equals(last)) {
-				result.remove();
-			} else {
-				last = result.retrieve();
-				result.findnext();
-			}
-		}
+		
 		return result;
 
 	}
@@ -250,17 +240,6 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 				list2.findnext();
 				i++;
 				j++;
-			}
-		}
-		// Remove duplicates from the result
-		result.findfirst();
-		T last = null;
-		while (!result.last()) {
-			if (result.retrieve().equals(last)) {
-				result.remove();
-			} else {
-				last = result.retrieve();
-				result.findnext();
 			}
 		}
 

@@ -124,25 +124,25 @@ public class test {
 		
 		}
 		i=0;
-		//System.out.println("made an index");
-		//normalIndex.booleanQuery("market or sports AND warming").display();
+		System.out.println("made an index");
+	    normalIndex.booleanQuery("market or sports AND warming").display();
 //while (!normalIndex.last()){
 	//	normalIndex.findnext();
 //	}
 //	System.out.println(normalIndex.retrieveId());
 	
-		//System.out.println("made an inverted index");
-		//invertedIndex.booleanQuery("market OR sports AND warming").display();
+		System.out.println("made an inverted index");
+		invertedIndex.booleanQuery("market OR sports AND warming").display();
 		//invertedIndex.findfirst();
 		//fNode<Integer> testing= invertedIndex.retrieveDocs();
 		//System.out.println(invertedIndex.retrieveDocs().next.data);
 		//invertedIndex.search("plastic");
 		//System.out.println(invertedIndex.retrieveDocs().freq);
 				//invertedIndex.findfirst();
-	//	System.out.println("made an inverted BST");
-	//	invertedBST.booleanQuery("market OR sports AND warming").display();
+		System.out.println("made an inverted BST");
+		invertedBST.booleanQuery("market OR sports AND warming").display();
 		//	normalIndex.display();
-	//	System.out.println("Made an inverted BST");
+
 
 
 	//System.out.println("Testing search and print for the word ai");
@@ -154,7 +154,7 @@ public class test {
 			//l3.display();
 
 			//invertedBST.findkey("plastic");
-			//System.out.println(invertedBST.current.data.next);
+		
 		
 
 		} catch (Exception e) {
