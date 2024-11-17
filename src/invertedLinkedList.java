@@ -35,7 +35,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 	 return current.word;
 	 
  }
- public Node retrieveDocs() {
+ public fNode retrieveDocs() {
 	 
     return current.data;
     
@@ -63,11 +63,16 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		}
 		search(key);
         if(current.word.compareToIgnoreCase(key) == 0){
-            Node<T> temp = current.data;
-            while(temp.next != null){
-                temp = temp.next;
-                }
-            temp.next = new Node(doc);
+            fNode<T> temp = current.data;
+			while (temp.next != null && temp.data.compareTo(doc) != 0){
+				temp = temp.next;
+			}
+			if(temp.data.compareTo(doc) == 0)
+			{
+				temp.freq++;
+				return;
+			}else
+            temp.next = new fNode(doc);
             return;
         }
         
@@ -82,7 +87,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
  
  public void display() {
 	 
-	 Node<T> temp;
+	 fNode<T> temp;
 	 invertedNode oldCurr = current;
 
 
@@ -141,7 +146,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		search(key);
 		LinkedList<T> docList = new LinkedList<>();
 		if (current != null && current.word.compareToIgnoreCase(key) == 0) {
-			Node<T> temp = current.data;
+			fNode<T> temp = current.data;
 			while (temp != null) {
 				docList.insert(temp.data);
 				temp = temp.next;

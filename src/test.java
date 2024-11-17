@@ -11,12 +11,13 @@ public class test {
 
 		BufferedReader reader = null;
 		BufferedReader remover = null;
-
+		int i =0;
+		int firstocc;
 		String line;
 		String rmline;
 		Boolean tmp;
 		LinkedList<String> words = new LinkedList<String>();
-
+		
 		indexLinkedList<Integer,String> normalIndex = new indexLinkedList<Integer,String>();
 		invertedLinkedList<Integer> invertedIndex = new invertedLinkedList<>();
 		BST<Integer> invertedBST = new BST<Integer>();
@@ -29,9 +30,10 @@ public class test {
 
 			line = reader.readLine();
 
-			 for (int i=0;i<50;i++){
-
-			line = reader.readLine().substring(2); //change to first occurance of ,
+			 
+				while((line = reader.readLine()).compareTo(",,") != 0){
+					firstocc = line.indexOf(",");
+			line = line.substring(firstocc); //change to first occurance of ,
 			String temp[] = line.split(" ");
 
 			tmp = false;
@@ -51,9 +53,9 @@ public class test {
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
 			}
-		
+			i++;
 		}
-
+		i=0;
 
 		reader = new BufferedReader(new FileReader(file));
 			remover = new BufferedReader(new FileReader(file2));
@@ -62,9 +64,10 @@ public class test {
 
 
 			
-			for (int i=0;i<50;i++){
+			while((line = reader.readLine()).compareTo(",,") != 0 ){
 
-				line = reader.readLine().substring(2); //change to first occurance of ,
+				firstocc = line.indexOf(",");
+				line = line.substring(firstocc); //change to first occurance of ,
 				String temp[] = line.split(" ");
 	
 				tmp = false;
@@ -85,17 +88,19 @@ public class test {
 					remover = new BufferedReader(new FileReader(file2));
 					tmp = false;
 				}
+				i++;
 			
 			}
-
+			i=0;
 			reader = new BufferedReader(new FileReader(file));
 			remover = new BufferedReader(new FileReader(file2));
 
 			line = reader.readLine();
 
-			 for (int i=0;i<50;i++){
+			while((line = reader.readLine()).compareTo(",,") != 0){
 
-			line = reader.readLine().substring(2); //change to first occurance of ,
+				firstocc = line.indexOf(",");
+			line = line.substring(firstocc); //change to first occurance of ,
 			String temp[] = line.split(" ");
 
 			tmp = false;
@@ -115,16 +120,27 @@ public class test {
 				remover = new BufferedReader(new FileReader(file2));
 				tmp = false;
 			}
+			i++;
 		
 		}
-		System.out.println("made an index");
-		normalIndex.booleanQuery("market and sports").display();
+		i=0;
+		//System.out.println("made an index");
+		//normalIndex.booleanQuery("market or sports AND warming").display();
+//while (!normalIndex.last()){
+	//	normalIndex.findnext();
+//	}
+//	System.out.println(normalIndex.retrieveId());
 	
-	
-		System.out.println("made an inverted index");
-		invertedIndex.searchToList("market").display();
-		System.out.println("made an inverted BST");
-		invertedBST.searchToList("market").display();
+		//System.out.println("made an inverted index");
+		//invertedIndex.booleanQuery("market OR sports AND warming").display();
+		//invertedIndex.findfirst();
+		//fNode<Integer> testing= invertedIndex.retrieveDocs();
+		//System.out.println(invertedIndex.retrieveDocs().next.data);
+		//invertedIndex.search("plastic");
+		//System.out.println(invertedIndex.retrieveDocs().freq);
+				//invertedIndex.findfirst();
+	//	System.out.println("made an inverted BST");
+	//	invertedBST.booleanQuery("market OR sports AND warming").display();
 		//	normalIndex.display();
 	//	System.out.println("Made an inverted BST");
 
@@ -136,6 +152,9 @@ public class test {
 			//l2.display();
 			//LinkedList l3 = invert.processAndQuery("business", "world");
 			//l3.display();
+
+			//invertedBST.findkey("plastic");
+			//System.out.println(invertedBST.current.data.next);
 		
 
 		} catch (Exception e) {

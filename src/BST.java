@@ -44,12 +44,15 @@ public class BST<T extends Comparable<T>> {
 
 		if (findkey(k)) {
 
-			Node<T> temp;
+			fNode<T> temp;
 			temp = current.data;
-			while (temp.next != null) {
+			while (temp.next != null && temp.data.compareTo(val)!=0) {
 				temp = temp.next;
 			}
-			temp.next = new Node<T>(val);
+			if(temp.data.compareTo(val)==0)
+			temp.freq++;
+			else
+			temp.next = new fNode<T>(val);
 			current = q; // findkey() modified current
 			return false; // key already in the BST
 		}
@@ -73,7 +76,7 @@ public class BST<T extends Comparable<T>> {
 
 		if (findkey(k)) {
 
-			Node<T> temp = current.data;
+			fNode<T> temp = current.data;
 
 			while (temp != null) {
 				System.out.print(temp.data + ",");
@@ -89,7 +92,7 @@ public class BST<T extends Comparable<T>> {
 		if (findkey(k)) {
 			LinkedList<T> DocList = new LinkedList<T>();
 
-			Node<T> temp = current.data;
+			fNode<T> temp = current.data;
 
 			while (temp != null) {
 
