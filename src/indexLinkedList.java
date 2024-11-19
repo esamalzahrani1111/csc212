@@ -2,87 +2,69 @@
 public class indexLinkedList<T extends Comparable<T>,U> {
 	private indexNode<T,U> head;
 	private indexNode<T,U> current;
- 
- public indexLinkedList() {
-	 head = null;
-	 current=null;
- }
- 
- 
- 
- public boolean empty() {
-	 return head ==null;
- }
- 
- public boolean last() {
-	 
-	 return current.next ==null;
-	 
- }
- public void findfirst() {
-	 current = head;
-	 
- }
- 
- public void findnext() {
-	 
-	 
-	 current = current.next;
- }
- 
- public T retrieveId() {
-	 
-	 return current.docId;
-	 
- }
- public Node retrieveWords() {
-	 
-    return current.data;
-    
-}
- public void updateId(T val) {
-	 
-	 
-	 current.docId = val;
- }
-public void search(T i){
-current = head;
-while (  current.docId.compareTo(i) != 0 && current.next != null){
-    current = current.next;
-}
 
+	public indexLinkedList() {
+		head = null;
+		current=null;
+	} 
 
-}
- 
- 
- public void insert (T id,U word) {
-		if (empty()) {
-			current = head = new indexNode (id,word);
-            return;
-		}
-		search(id);
-        if(current.docId.compareTo(id) == 0){
-            Node<U> temp = current.data;
-            while(temp.next != null){
-                temp = temp.next;
-                }
-            temp.next = new Node(word);
-            return;
-        }
-        
-        
-        
-        {
-			current.next = new indexNode<T,U>(id, word);
+	public boolean empty() {
+		return head ==null;
+	}
+
+	public boolean last() {
+		return current.next ==null;
+	}
+
+	public void findFirst() {
+		current = head;
+	}
+
+	public void findNext() {	
+		current = current.next;
+	}
+
+	public T retrieveId() {
+		return current.docId;
+	}
+
+	public Node<U> retrieveWords() {
+		return current.data;
+	}
+
+	public void updateId(T val) {	
+		current.docId = val;
+	}
+	public void search(T i){
+		current = head;
+		while (current.docId.compareTo(i) != 0 && current.next != null){
+			current = current.next;
 		}
 	}
- 
- public void remove () {
+
+	public void insert (T id,U word) {
+		if (empty()) {
+			current = head = new indexNode<T, U>(id, word);
+			return;
+		}
+		search(id);
+		if(current.docId.compareTo(id) == 0){
+			Node<U> temp = current.data;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = new Node<U>(word);
+			return;
+		}
+		current.next = new indexNode<T,U>(id, word);
+	}
+
+	public void remove () {
 		if (current == head) {
 			head = head.next;
 		}
 		else {
-			indexNode tmp = head;
+			indexNode<T, U> tmp = head;
 
 			while (tmp.next != current)
 				tmp = tmp.next;
@@ -95,32 +77,30 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 		else
 			current = current.next;
 	}
- 
- 
- public void display() {
-	 
-	 Node<U> temp;
-	 indexNode oldCurr = current;
 
+	public void display() {
+		
+		Node<U> temp;
+		indexNode<T, U> oldCurr = current;
 
-     current = head;
+		current = head;
 
-     while (current != null) {
-        temp = current.data;
-		System.out.println("DocID is " + current.docId);
-        while (temp !=null) {
-            System.out.println("  word is " + temp.data);
-            temp = temp.next;
-            
-        }
-        current = current.next;
-    }
-    current = oldCurr;
-     }
- 
+		while (current != null) {
+			temp = current.data;
+			System.out.println("DocID is " + current.docId);
+			while (temp !=null) {
+				System.out.println("  word is " + temp.data);
+				temp = temp.next;
+				
+			}
+			current = current.next;
+		}
+		current = oldCurr;
+	}
+
 	public int size() {
 		int counter = 0;
-		indexNode tmp = current;
+		indexNode<T, U> tmp = current;
 		current = head;
 		while(current != null) {
 			counter++;
@@ -130,21 +110,21 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 		return counter;
 	}
 
-     public LinkedList<T> searchToList(String key) {
-        LinkedList<T> docList = new LinkedList<>();
-        current = head;
-        while (current != null) {
-            Node<U> temp = current.data;
-            while (temp != null) {
-                if (temp.data.toString().equalsIgnoreCase(key)) {
-                    docList.insert(current.docId);
-                }
-                temp = temp.next;
-            }
-            current = current.next;
-        }
-        return docList;
-    }
+	public LinkedList<T> searchToList(String key) {
+		LinkedList<T> docList = new LinkedList<>();
+		current = head;
+		while (current != null) {
+			Node<U> temp = current.data;
+			while (temp != null) {
+				if (temp.data.toString().equalsIgnoreCase(key)) {
+					docList.insert(current.docId);
+				}
+				temp = temp.next;
+			}
+			current = current.next;
+		}
+		return docList;
+	}
 
 	public LinkedList<T> booleanQuery(String query) {
 
@@ -153,26 +133,21 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 		String[] tokens = query.split("\\s+");
 
 		for (String token : tokens) {
-
-
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				
 				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
-				
 					doQuery(docStk, opStk);
-			}
-				else{
-				    opStk.push(token);
-					
 				}
-			} else
+				else {
+					opStk.push(token);
+				}
+			}
+			else {
 				docStk.push(searchToList(token));
+			}
 		}
 
 		while (!opStk.empty()) {
-			
-			doQuery(docStk, opStk);
-			
+			doQuery(docStk, opStk);	
 		}
 		return docStk.pop();
 	}
@@ -203,11 +178,9 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 				List2.findnext();
 				j++;
 			}
-
 		}
 		
 		return result;
-
 	}
 
 	private LinkedList<T> processOrQuery(LinkedList<T> word1, LinkedList<T> word2) {
@@ -267,9 +240,4 @@ while (  current.docId.compareTo(i) != 0 && current.next != null){
 		return 0;
 	}
 
-
-
-
 }
-
-//same as slides

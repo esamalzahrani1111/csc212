@@ -1,69 +1,61 @@
 
 public class invertedLinkedList<T extends Comparable<T>> {
+
 	private invertedNode<T> head;
 	private invertedNode<T> current;
- 
- public invertedLinkedList() {
-	 head = null;
-	 current=null;
- }
- 
- 
- 
- public boolean empty() {
-	 return head ==null;
- }
- 
- public boolean last() {
-	 
-	 return current.next ==null;
-	 
- }
- public void findfirst() {
-	 current = head;
-	 
- }
- 
- public void findnext() {
-	 
-	 
-	 current = current.next;
- }
- 
- public String retrieveWord() {
-	 
-	 return current.word;
-	 
- }
- public fNode retrieveDocs() {
-	 
-    return current.data;
-    
-}
- public void updateWord(String val) {
-	 
-	 
-	 current.word = val;
- }
 
-public void search(String i){
-current = head;
-while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
-    current = current.next;
-}
+	public invertedLinkedList() {
+		head = null;
+		current=null;
+	}
 
 
-}
- 
- 
- public void insert (String key,T doc) {
+
+	public boolean empty() {
+		return head ==null;
+	}
+
+	public boolean last() {		
+		return current.next ==null;
+	}
+
+	public void findFirst() {
+		current = head;
+		
+	}
+
+	public void findNext() {
+		current = current.next;
+	}
+
+	public String retrieveWord() {
+		return current.word;
+	}
+
+	public fNode retrieveDocs() {	
+		return current.data;
+	}
+
+	public void updateWord(String val) {		
+		current.word = val;
+	}
+
+	public void search(String i){
+		current = head;
+		while (current.word.compareToIgnoreCase(i) != 0 && current.next != null){
+			current = current.next;
+		}
+	}
+
+
+	public void insert (String key,T doc) {
 		if (empty()) {
-			current = head = new invertedNode(key,doc);
-            return;
+			current = head = new invertedNode<T>(key, doc);
+			return;
 		}
 		search(key);
-        if(current.word.compareToIgnoreCase(key) == 0){
-            fNode<T> temp = current.data;
+		if(current.word.compareToIgnoreCase(key) == 0){
+			fNode<T> temp = current.data;
 			while (temp.next != null && temp.data.compareTo(doc) != 0){
 				temp = temp.next;
 			}
@@ -72,44 +64,44 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 				temp.freq++;
 				return;
 			}else
-            temp.next = new fNode(doc);
-            return;
-        }
-        
-        
-        
-        {
+			temp.next = new fNode<T>(doc);
+			return;
+		}
+		
+		
+		
+		{
 			current.next = new invertedNode<T>(key, doc);
 		}
 	}
- 
- 
- 
- public void display() {
-	 
-	 fNode<T> temp;
-	 invertedNode oldCurr = current;
 
 
-     current = head;
 
-     while (current != null) {
-        temp = current.data;
+	public void display() {
+		
+		fNode<T> temp;
+		invertedNode<T> oldCurr = current;
+
+
+		current = head;
+
+		while (current != null) {
+		temp = current.data;
 		System.out.print("word is " + current.word +" docs are : \n");
-        while (temp !=null) {
-            System.out.print(temp.data+",");
-            System.out.println("");
-            temp = temp.next;
-            
-        }
-        current = current.next;
-    }
-    current = oldCurr;
-     }
- 
+		while (temp !=null) {
+			System.out.print(temp.data+",");
+			System.out.println("");
+			temp = temp.next;
+			
+		}
+		current = current.next;
+	}
+	current = oldCurr;
+		}
+
 	public int size() {
 		int counter = 0;
-		invertedNode tmp = current;
+		invertedNode<T> tmp = current;
 		current = head;
 		while(current != null) {
 			counter++;
@@ -119,7 +111,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		return counter;
 	}
 
-    public LinkedList<T> booleanQuery(String query) {
+	public LinkedList<T> booleanQuery(String query) {
 		Stack<LinkedList<T>> docStk = new Stack<>();
 		Stack<String> opStk = new Stack<>();
 		String[] tokens = query.split("\\s+");
@@ -127,7 +119,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		for (String token : tokens) {
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
 				if (!opStk.empty() && precedence(opStk.peek()) > precedence(token)) {
-					doQuery(docStk, opStk);
+					performOperation(docStk, opStk);
 				} else {
 					opStk.push(token);
 				}
@@ -137,7 +129,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		}
 
 		while (!opStk.empty()) {
-			doQuery(docStk, opStk);
+			performOperation(docStk, opStk);
 		}
 		return docStk.pop();
 	}
@@ -155,7 +147,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		return docList;
 	}
 
-	private void doQuery(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
+	private void performOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
 		LinkedList<T> right = docStk.pop();
 		LinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
@@ -195,7 +187,7 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 			}
 
 		}
-	
+
 		return result;
 
 	}
@@ -244,5 +236,3 @@ while (  current.word.compareToIgnoreCase(i) != 0 && current.next != null){
 		return 0;
 	}
 }
-
-//same as slides

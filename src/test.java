@@ -12,9 +12,9 @@ public class test {
 		BufferedReader reader = null;
 		BufferedReader remover = null;
 		int i =0;
-		int firstocc;
+		int firsToOccur;
 		String line;
-		String rmline;
+		String removeLine;
 		Boolean tmp;
 		LinkedList<String> words = new LinkedList<String>();
 		
@@ -32,8 +32,8 @@ public class test {
 
 			 
 				while((line = reader.readLine()).compareTo(",,") != 0){
-					firstocc = line.indexOf(",");
-			line = line.substring(firstocc); //change to first occurance of ,
+					firsToOccur = line.indexOf(",");
+			line = line.substring(firsToOccur); //change to first occurance of ,
 			String temp[] = line.split(" ");
 
 			tmp = false;
@@ -41,9 +41,9 @@ public class test {
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
 
-				while ((rmline = remover.readLine()) != null) { // add if true stop
+				while ((removeLine = remover.readLine()) != null) { // add if true stop
 
-					if (index.equalsIgnoreCase(rmline))
+					if (index.equalsIgnoreCase(removeLine))
 						tmp = true;
 				}
 
@@ -66,8 +66,8 @@ public class test {
 			
 			while((line = reader.readLine()).compareTo(",,") != 0 ){
 
-				firstocc = line.indexOf(",");
-				line = line.substring(firstocc); //change to first occurance of ,
+				firsToOccur = line.indexOf(",");
+				line = line.substring(firsToOccur); //change to first occurance of ,
 				String temp[] = line.split(" ");
 	
 				tmp = false;
@@ -75,9 +75,9 @@ public class test {
 				for (String index : temp) {
 					index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
 	
-					while ((rmline = remover.readLine()) != null) { // add if true stop
+					while ((removeLine = remover.readLine()) != null) { // add if true stop
 	
-						if (index.equalsIgnoreCase(rmline))
+						if (index.equalsIgnoreCase(removeLine))
 							tmp = true;
 					}
 	
@@ -99,8 +99,8 @@ public class test {
 
 			while((line = reader.readLine()).compareTo(",,") != 0){
 
-				firstocc = line.indexOf(",");
-			line = line.substring(firstocc); //change to first occurance of ,
+				firsToOccur = line.indexOf(",");
+			line = line.substring(firsToOccur); //change to first occurance of ,
 			String temp[] = line.split(" ");
 
 			tmp = false;
@@ -108,9 +108,9 @@ public class test {
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
 
-				while ((rmline = remover.readLine()) != null) { // add if true stop
+				while ((removeLine = remover.readLine()) != null) { // add if true stop
 
-					if (index.equalsIgnoreCase(rmline))
+					if (index.equalsIgnoreCase(removeLine))
 						tmp = true;
 				}
 

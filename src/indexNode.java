@@ -1,7 +1,7 @@
 public class indexNode<T,U> {
     public T docId;
     public Node<U> data;
-	public indexNode next;
+	public indexNode<T,U> next;
 
 	public indexNode () {
         docId = null;

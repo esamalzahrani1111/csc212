@@ -8,16 +8,13 @@ public class invertedNode<T> {
 	public invertedNode () {
         word = null;
 		data = null;
-		next = null;
-		
+		next = null;	
 	}
 	
 	public invertedNode(String word,T val) {
 		this.word = word;
 		data = new fNode<T>(val);
 		next =null;
-		
-		
 	}
 	
 	

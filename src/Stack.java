@@ -10,12 +10,12 @@ public class Stack<T> {
 		return top == null;
 	}
 
-
     public void push(T e){
 		Node<T> tmp = new Node<T>(e);
 		tmp.next = top;
 		top = tmp;
 	}
+	
     public T pop(){
 		T e = top.data;
 		top = top.next;
