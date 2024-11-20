@@ -18,7 +18,7 @@ public class BST<T extends Comparable<T>> {
 		return current.data.data;
 	}
 
-	public boolean findkey(String tkey) {
+	public boolean findKey(String targetKey) {
 		BSTNode<T> p = root, q = root;
 
 		if (empty())
@@ -26,10 +26,10 @@ public class BST<T extends Comparable<T>> {
 
 		while (p != null) {
 			q = p;
-			if (p.key.compareToIgnoreCase(tkey) == 0) {
+			if (p.key.compareToIgnoreCase(targetKey) == 0) {
 				current = p;
 				return true;
-			} else if (p.key.compareToIgnoreCase(tkey) > 0)
+			} else if (p.key.compareToIgnoreCase(targetKey) > 0)
 				p = p.left;
 			else
 				p = p.right;
@@ -42,7 +42,7 @@ public class BST<T extends Comparable<T>> {
 	public boolean insert(String k, T val) {
 		BSTNode<T> p, q = current;
 
-		if (findkey(k)) {
+		if (findKey(k)) {
 
 			fNode<T> temp;
 			temp = current.data;
@@ -53,7 +53,7 @@ public class BST<T extends Comparable<T>> {
 			temp.freq++;
 			else
 			temp.next = new fNode<T>(val);
-			current = q; // findkey() modified current
+			current = q; // findKey() modified current
 			return false; // key already in the BST
 		}
 
@@ -74,7 +74,7 @@ public class BST<T extends Comparable<T>> {
 
 	public void searchAndPrint(String k) {
 
-		if (findkey(k)) {
+		if (findKey(k)) {
 
 			fNode<T> temp = current.data;
 
@@ -89,7 +89,7 @@ public class BST<T extends Comparable<T>> {
 
 	public LinkedList<T> searchToList(String k) {
 
-		if (findkey(k)) {
+		if (findKey(k)) {
 			LinkedList<T> DocList = new LinkedList<T>();
 
 			fNode<T> temp = current.data;
@@ -121,7 +121,7 @@ public class BST<T extends Comparable<T>> {
 				
 				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
 				
-					doQuery(docStk, opStk);
+					processLogicalOperation(docStk, opStk);
 			}
 				else{
 				    opStk.push(token);
@@ -133,7 +133,7 @@ public class BST<T extends Comparable<T>> {
 
 		while (!opStk.empty()) {
 			
-			doQuery(docStk, opStk);
+			processLogicalOperation(docStk, opStk);
 			
 		}
 		return docStk.pop();
@@ -145,8 +145,8 @@ public class BST<T extends Comparable<T>> {
 		LinkedList<T> List2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
-		List1.findfirst();
-		List2.findfirst();
+		List1.findFirst();
+		List2.findFirst();
 
 		int i = 0;
 		int j = 0;
@@ -154,15 +154,15 @@ public class BST<T extends Comparable<T>> {
 		while ((i < List1.size()) && (j < List2.size())) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
 				result.insert(List1.retrieve());
-				List1.findnext();
-				List2.findnext();
+				List1.findNext();
+				List2.findNext();
 				i++;
 				j++;
 			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {
-				List1.findnext();
+				List1.findNext();
 				i++;
 			} else {
-				List2.findnext();
+				List2.findNext();
 				j++;
 			}
 
@@ -177,8 +177,8 @@ public class BST<T extends Comparable<T>> {
 		LinkedList<T> list2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
-		list1.findfirst();
-		list2.findfirst();
+		list1.findFirst();
+		list2.findFirst();
 
 		int i = 0;
 		int j = 0;
@@ -189,16 +189,16 @@ public class BST<T extends Comparable<T>> {
 		while (i < size1 || j < size2) {
 			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
 				result.insert(list1.retrieve());
-				list1.findnext();
+				list1.findNext();
 				i++;
 			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
 				result.insert(list2.retrieve());
-				list2.findnext();
+				list2.findNext();
 				j++;
 			} else {
 				result.insert(list1.retrieve());
-				list1.findnext();
-				list2.findnext();
+				list1.findNext();
+				list2.findNext();
 				i++;
 				j++;
 			}
@@ -207,7 +207,7 @@ public class BST<T extends Comparable<T>> {
 		return result;
 	}
 
-	private void doQuery(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
+	private void processLogicalOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
 
 		LinkedList<T> right = docStk.pop();
 		LinkedList<T> left = docStk.pop();
@@ -228,4 +228,36 @@ public class BST<T extends Comparable<T>> {
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	public LinkedList<T> rankedQuery(String query) {
+		LinkedList<T> results = new LinkedList<>();
+		HashMap scores = new HashMap(100);
+		String[] tokens = query.split("\\s+");
+	
+		for (String token : tokens) {
+			if (findKey(token)) {
+				fNode<T> docs = current.data;
+				while (docs != null) {
+					T docId = docs.data;
+					int score = scores.containsKey((Integer) docId) ?
+					 scores.get((Integer) docId) : 0;
+					scores.put((Integer) docId, score + docs.freq);
+					docs = docs.next;
+				}
+			}
+		}
+	
+		int[] docIds = scores.keys();
+		System.out.println("size of docIds array : "+ docIds.length);;
+		int[] docScores = scores.values();
+	
+		SortUtils.mergeSort(docIds, docScores, 0, docIds.length - 1);
+	
+		for (int docId : docIds) {
+			results.insert((T) Integer.valueOf(docId)); 
+		}
+	
+		return results;
+	}
+	
 }

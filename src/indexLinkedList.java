@@ -1,4 +1,3 @@
-
 public class indexLinkedList<T extends Comparable<T>,U> {
 	private indexNode<T,U> head;
 	private indexNode<T,U> current;
@@ -35,6 +34,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 	public void updateId(T val) {	
 		current.docId = val;
 	}
+	
 	public void search(T i){
 		current = head;
 		while (current.docId.compareTo(i) != 0 && current.next != null){
@@ -135,7 +135,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		for (String token : tokens) {
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
 				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
-					doQuery(docStk, opStk);
+					processLogicalOperation(docStk, opStk);
 				}
 				else {
 					opStk.push(token);
@@ -147,7 +147,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		}
 
 		while (!opStk.empty()) {
-			doQuery(docStk, opStk);	
+			processLogicalOperation(docStk, opStk);	
 		}
 		return docStk.pop();
 	}
@@ -158,8 +158,8 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		LinkedList<T> List2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
-		List1.findfirst();
-		List2.findfirst();
+		List1.findFirst();
+		List2.findFirst();
 
 		int i = 0;
 		int j = 0;
@@ -167,15 +167,15 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		while ((i < List1.size()) && (j < List2.size())) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
 				result.insert(List1.retrieve());
-				List1.findnext();
-				List2.findnext();
+				List1.findNext();
+				List2.findNext();
 				i++;
 				j++;
 			} else if (List1.retrieve().compareTo(List2.retrieve()) < 0) {
-				List1.findnext();
+				List1.findNext();
 				i++;
 			} else {
-				List2.findnext();
+				List2.findNext();
 				j++;
 			}
 		}
@@ -189,8 +189,8 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		LinkedList<T> list2 = word2;
 		LinkedList<T> result = new LinkedList<T>();
 
-		list1.findfirst();
-		list2.findfirst();
+		list1.findFirst();
+		list2.findFirst();
 
 		int i = 0;
 		int j = 0;
@@ -201,16 +201,16 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		while (i < size1 || j < size2) {
 			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
 				result.insert(list1.retrieve());
-				list1.findnext();
+				list1.findNext();
 				i++;
 			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
 				result.insert(list2.retrieve());
-				list2.findnext();
+				list2.findNext();
 				j++;
 			} else {
 				result.insert(list1.retrieve());
-				list1.findnext();
-				list2.findnext();
+				list1.findNext();
+				list2.findNext();
 				i++;
 				j++;
 			}
@@ -219,7 +219,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		return result;
 	}
 
-	private void doQuery(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
+	private void processLogicalOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
 
 		LinkedList<T> right = docStk.pop();
 		LinkedList<T> left = docStk.pop();
@@ -240,4 +240,50 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	public LinkedList<T> rankedQuery(String query) {
+		
+		LinkedList<T> results = new LinkedList<>();
+		HashMap scores = new HashMap(100); // For docId (T) and scores
+		String[] tokens = query.split("\\s+");
+
+		indexNode<T, U> current = head;
+		while (current != null) {
+			T docId = current.docId;
+			int score = scores.containsKey((Integer) docId) ?
+			 scores.get((Integer) docId) : 0;
+	
+			Node<U> words = current.data;
+			while (words != null) {
+				for (String token : tokens) {
+					if (words.data.toString().equalsIgnoreCase(token)) {
+						score++;
+					}
+				}
+				words = words.next;
+			}
+	
+			if (score > 0) {
+				scores.put((Integer) docId, score);
+			}
+			current = current.next;
+		}
+	
+		int[] docIds = scores.keys();
+		int[] docScores = scores.values();
+	
+		SortUtils.mergeSort(docIds, docScores, 0, docIds.length - 1);
+	
+		for (int docId : docIds) {
+			results.insert((T) Integer.valueOf(docId));
+		}
+		// for (int i = 0; i < docIds.length; i++) {
+		// 	if (docScores[i] > 0){
+		// 		results.insert((T) Integer.valueOf(docIds[i]));
+		// 	}
+		// }
+	
+		return results;
+	}
+	
 }
