@@ -132,7 +132,8 @@ public class test {
 		
 		}
 		i=0;
-
+		reader.close();
+		reader.close();
 		
 		// System.out.println("Testing the invertedindex");
 		// System.out.println("testing the search for market");
@@ -144,7 +145,6 @@ public class test {
 		// System.out.println("testing the funcationlity of and/or market or sports and warming");
 		// invertedIndex.booleanQuery("market or sports and warming").display();;
 		// System.out.println("testing the ranked market sports");
-		// invertedIndex.rankedQuery("market sports").display();
 	//	System.out.println("made an index");
 	  //  System.out.println("doing boolean query: market OR sports AND warming");
 		//normalIndex.booleanQuery("market or sports AND warming").display();
@@ -184,10 +184,82 @@ public class test {
 			//l3.display();
 
 			//invertedBST.findkey("plastic");
-		invertedBST.booleanQuery("sport and market").display();
-		invertedIndex.booleanQuery("sport and market").display();
-		normalIndex.booleanQuery("market").display();
-
+			//invertedBST.rankedQuery("market sports");
+		// // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// //                                                                                      LAST TEST HERE THEN MAIN
+		// // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// 	System.out.println("TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX TESTING NORMAL INDEX");
+		// 	System.out.println("BOOLEAN QUERYS");
+		// 	normalIndex.booleanQuery("market and sports").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.booleanQuery("weather and warming").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.booleanQuery("business and world").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.booleanQuery("weather or warming").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.booleanQuery("market or sports").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.booleanQuery("market or sports and warming").display();
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		// 	System.out.println("RANKED QUERYS");
+		// 	normalIndex.rankedQuery("market sports");
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.rankedQuery("weather warming");
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	normalIndex.rankedQuery("business world market");
+		// 	System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+		// 	 System.out.println("################################################################################################################################################################################################");
+			// System.out.println("TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX ");
+			// System.out.println("BOOLEAN QUERYS");
+			// invertedIndex.booleanQuery("market and sports").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.booleanQuery("weather and warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.booleanQuery("business and world").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.booleanQuery("weather or warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.booleanQuery("market or sports").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.booleanQuery("market or sports and warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			// System.out.println("RANKED QUERYS");
+			// invertedIndex.rankedQuery("market sports");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.rankedQuery("weather warming");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedIndex.rankedQuery("business world market");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// System.out.println("################################################################################################################################################################################################");
+			// System.out.println("TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST TESTING INVERTED BST ");
+			// System.out.println("BOOLEAN QUERYS");
+			// invertedBST.booleanQuery("market and sports").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.booleanQuery("weather and warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.booleanQuery("business and world").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.booleanQuery("weather or warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.booleanQuery("market or sports").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.booleanQuery("market or sports and warming").display();
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			// System.out.println("RANKED QUERYS");
+			// invertedBST.rankedQuery("market sports");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.rankedQuery("weather warming");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// invertedBST.rankedQuery("business world market");
+			// System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
+			// System.out.println("################################################################################################################################################################################################");
+		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		////                                                                                  TEST ENDS HERE
+		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

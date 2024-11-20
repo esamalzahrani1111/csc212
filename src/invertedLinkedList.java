@@ -30,7 +30,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		return current.word;
 	}
 
-	public fNode retrieveDocs() {	
+	public fNode<T> retrieveDocs() {	
 		return current.data;
 	}
 
@@ -168,6 +168,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 		while ((i < List1.size()) && (j < List2.size())) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
+				if(result.empty() || List1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(List1.retrieve());
 				List1.findNext();
 				List2.findNext();
@@ -204,14 +205,17 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 		while (i < size1 || j < size2) {
 			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				i++;
 			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
+				if(result.empty() || list2.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list2.retrieve());
 				list2.findNext();
 				j++;
 			} else {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				list2.findNext();
@@ -261,6 +265,11 @@ public class invertedLinkedList<T extends Comparable<T>> {
 	
 		for (int docId : docIds) {
 			results.insert((T) Integer.valueOf(docId)); 
+		}
+		int sizeOfR = docIds.length;
+		System.out.println("DocID\t\tScore");
+		for (int i =0;i<sizeOfR;i++){
+			System.out.println(docIds[i] + "\t\t" + docScores[i]);
 		}
 	
 		return results;
