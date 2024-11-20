@@ -1,17 +1,22 @@
 class HashMap {
 
-    private Entry[] table;
-    private int capacity;
+    // Attributes
+    private Entry[] table; 
+    private int capacity; // Size of the hash table 
+    private int size; // Track the number of key-value pairs
 
+    // Constructor
     public HashMap(int capacity) {
         this.capacity = capacity;
         table = new Entry[capacity];
     }
 
+    // Methods
     private int hash(int key) {
         return key % capacity;
     }
 
+    // Insert a new key-value pair
     public void put(int key, int value) {
         int index = hash(key);
         Entry current = table[index];
@@ -28,8 +33,10 @@ class HashMap {
         Entry newEntry = new Entry(key, value);
         newEntry.next = table[index];
         table[index] = newEntry;
+        size++;
     }
 
+    //Get the value of a key
     public int get(int key) {
         int index = hash(key);
         Entry current = table[index];
@@ -59,7 +66,7 @@ class HashMap {
     }
 
     public int[] keys() {
-        int[] keys = new int[capacity];
+        int[] keys = new int[size];
         int count = 0;
         for (int i = 0; i < capacity; i++) {
             Entry current = table[i];
@@ -72,7 +79,7 @@ class HashMap {
     }
 
     public int[] values() {
-        int[] values = new int[capacity];
+        int[] values = new int[size];
         int count = 0;
         for (int i = 0; i < capacity; i++) {
             Entry current = table[i];
