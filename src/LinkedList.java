@@ -15,11 +15,11 @@ public class LinkedList<T> {
 	public boolean last() {		
 		return current.next ==null;
 	}
-	public void findfirst() {
+	public void findFirst() {
 		current = head;
 	}
 
-	public void findnext() {
+	public void findNext() {
 		current = current.next;
 	}
 
@@ -67,7 +67,7 @@ public class LinkedList<T> {
 
 	public void display() {
 		
-		Node tmp = current;
+		Node<T> tmp = current;
 		current = head;
 		while (current != null) {
 			System.out.println(current.data);
@@ -77,7 +77,7 @@ public class LinkedList<T> {
 	}
 	public int size() {
 		int counter = 0;
-		Node tmp = current;
+		Node<T> tmp = current;
 		current = head;
 		while(current != null) {
 			counter++;

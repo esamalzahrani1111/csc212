@@ -8,41 +8,30 @@ public class fLinkedList<T> {
 	 current=null;
  }
  
- 
- 
  public boolean empty() {
 	 return head ==null;
  }
  
  public boolean last() {
-	 
-	 return current.next ==null;
-	 
+	 return current.next ==null;	 
  }
- public void findfirst() {
+
+ public void findFirst() {
 	 current = head;
-	 
  }
  
- public void findnext() {
-	 
-	 
+ public void findNext() {	 
 	 current = current.next;
  }
  
  public T retrieve() {
-	 
 	 return current.data;
-	 
- }
- public void update(T val) {
-	 
-	 
-	 current.data = val;
  }
  
- 
- 
+ public void update(T val) { 	 
+	current.data = val;
+ } 
+
  public void insert (T val) {
 		fNode<T> tmp;
 		if (empty()) {
@@ -79,7 +68,7 @@ public class fLinkedList<T> {
  public void display() {
 	 
 	 
-	 fNode tmp = current;
+	 fNode<T> tmp = current;
      current = head;
      while (current != null) {
          System.out.println(current.data);
@@ -89,7 +78,7 @@ public class fLinkedList<T> {
  }
 	public int size() {
 		int counter = 0;
-		fNode tmp = current;
+		fNode<T> tmp = current;
 		current = head;
 		while(current != null) {
 			counter++;
