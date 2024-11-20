@@ -8,8 +8,8 @@ public class test {
 
 		System.out.println("Current Working Directory: " + new File(".").getAbsolutePath());
 
-		String file = "dataset.csv";
-		String file2 = "stop.txt";
+		String file = "src//dataset.csv";
+		String file2 = "src//stop.txt";
 
 		System.out.println("Resolved dataset.csv Path: " + new File(file).getAbsolutePath());
         System.out.println("Resolved stop.txt Path: " + new File(file2).getAbsolutePath());
@@ -133,32 +133,44 @@ public class test {
 		}
 		i=0;
 
-		System.out.println("made an index");
-	    System.out.println("doing boolean query: market OR sports AND warming");
-		normalIndex.booleanQuery("market or sports AND warming").display();
-		System.out.println("doing ranked query: market sports");
-		normalIndex.rankedQuery("market sports").display();
+		
+		// System.out.println("Testing the invertedindex");
+		// System.out.println("testing the search for market");
+		// invertedIndex.searchToList("market").display();
+		// System.out.println("testing the and market and sports");
+		// invertedIndex.booleanQuery("market and sports").display();
+		// System.out.println("testing the or for market or sports");
+		// invertedIndex.booleanQuery("market or sports").display();
+		// System.out.println("testing the funcationlity of and/or market or sports and warming");
+		// invertedIndex.booleanQuery("market or sports and warming").display();;
+		// System.out.println("testing the ranked market sports");
+		// invertedIndex.rankedQuery("market sports").display();
+	//	System.out.println("made an index");
+	  //  System.out.println("doing boolean query: market OR sports AND warming");
+		//normalIndex.booleanQuery("market or sports AND warming").display();
+		//System.out.println("doing ranked query: market sports");
+		//normalIndex.rankedQuery("market sports").display();
 //while (!normalIndex.last()){
 	//	normalIndex.findnext();
 //	}
 //	System.out.println(normalIndex.retrieveId());
 	
-		System.out.println("made an inverted index");
-		System.out.println("doing boolean query: market OR sports AND warming");
-		invertedIndex.booleanQuery("market OR sports AND warming").display();
-		System.out.println("doing ranked query: market sports");
-		invertedIndex.rankedQuery("market sports").display();
+	//	System.out.println("made an inverted index");
+	//	System.out.println("doing boolean query: market OR sports AND warming");
+		//invertedIndex.booleanQuery("market OR sports AND warming").display();
+	//	System.out.println("doing ranked query: market sports");
+		//invertedIndex.rankedQuery("market sports").display();
 		//invertedIndex.findfirst();
 		//fNode<Integer> testing= invertedIndex.retrieveDocs();
 		//System.out.println(invertedIndex.retrieveDocs().next.data);
 		//invertedIndex.search("plastic");
 		//System.out.println(invertedIndex.retrieveDocs().freq);
 				//invertedIndex.findfirst();
-		System.out.println("made an inverted BST");
-		System.out.println("doing boolean query: market OR sports AND warming");
-		invertedBST.booleanQuery("market OR sports AND warming").display();
-		System.out.println("doing ranked query: market sports");
-		invertedBST.rankedQuery("market sports").display();
+//		System.out.println("made an inverted BST");
+	//	System.out.println("doing boolean query: market OR sports AND warming");
+		//invertedBST.booleanQuery("market OR sports AND warming").display();
+		//System.out.println("doing ranked query: market sports");
+		//invertedBST.rankedQuery("market sports").display();
 		//	normalIndex.display();
 
 
@@ -172,8 +184,9 @@ public class test {
 			//l3.display();
 
 			//invertedBST.findkey("plastic");
-		
-		
+		invertedBST.booleanQuery("sport and market").display();
+		invertedIndex.booleanQuery("sport and market").display();
+		normalIndex.booleanQuery("market").display();
 
 		} catch (Exception e) {
 			e.printStackTrace();

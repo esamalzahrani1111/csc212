@@ -7,7 +7,11 @@ public class LinkedList<T> {
 		head = null;
 		current=null;
 	}
-
+	public LinkedList(T val){
+		head = null;
+		current=null;
+		insert(val);
+	}
 	public boolean empty() {
 		return head ==null;
 	}

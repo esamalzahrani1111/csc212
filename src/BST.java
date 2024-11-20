@@ -14,8 +14,8 @@ public class BST<T extends Comparable<T>> {
 		return false;
 	}
 
-	public T retrieve() {
-		return current.data.data;
+	public fLinkedList retrieve() {
+		return current.data;
 	}
 
 	public boolean findKey(String targetKey) {
@@ -44,15 +44,17 @@ public class BST<T extends Comparable<T>> {
 
 		if (findKey(k)) {
 
-			fNode<T> temp;
-			temp = current.data;
-			while (temp.next != null && temp.data.compareTo(val)!=0) {
-				temp = temp.next;
-			}
-			if(temp.data.compareTo(val)==0)
-			temp.freq++;
-			else
-			temp.next = new fNode<T>(val);
+			// fNode<T> temp;
+			// temp = current.data;
+			// while (temp.next != null && temp.data.compareTo(val)!=0) {
+			// 	temp = temp.next;
+			// }
+			// if(temp.data.compareTo(val)==0)
+			// temp.freq++;
+			// else
+			// temp.next = new fNode<T>(val);
+			fLinkedList<T> temp = current.data;
+			temp.insert(val);
 			current = q; // findKey() modified current
 			return false; // key already in the BST
 		}
@@ -76,12 +78,13 @@ public class BST<T extends Comparable<T>> {
 
 		if (findKey(k)) {
 
-			fNode<T> temp = current.data;
-
-			while (temp != null) {
-				System.out.print(temp.data + ",");
-				temp = temp.next;
+			fLinkedList<T> temp = current.data;
+			temp.findFirst();
+			while (!temp.last()) {
+				System.out.print(temp.retrieve() + ",");
+				temp.findNext();
 			}
+			System.out.print(temp.retrieve() + ",");// one more time becuase the loop doesnt take in account the last element
 
 		} else
 			System.out.println("no node with this key");
@@ -92,18 +95,19 @@ public class BST<T extends Comparable<T>> {
 		if (findKey(k)) {
 			LinkedList<T> DocList = new LinkedList<T>();
 
-			fNode<T> temp = current.data;
+			fLinkedList<T> temp = current.data;
+			temp.findFirst();
+			while (!temp.last()) {
 
-			while (temp != null) {
-
-				DocList.insert(temp.data);
-				temp = temp.next;
+				DocList.insert(temp.retrieve());
+				temp.findNext();
 			}
+			DocList.insert(temp.retrieve());// one more time becuase the loop doesnt take in account the last element
 			return DocList;
 
 		} else {
 			System.out.println("no node with this key");
-			return null;
+			return new LinkedList<T>();
 		}
 
 	}
@@ -236,14 +240,19 @@ public class BST<T extends Comparable<T>> {
 	
 		for (String token : tokens) {
 			if (findKey(token)) {
-				fNode<T> docs = current.data;
-				while (docs != null) {
-					T docId = docs.data;
+				fLinkedList<T> docs = current.data;
+				docs.findFirst();
+				while (!docs.last()) {
+					T docId = docs.retrieve();
 					int score = scores.containsKey((Integer) docId) ?
 					 scores.get((Integer) docId) : 0;
-					scores.put((Integer) docId, score + docs.freq);
-					docs = docs.next;
+					scores.put((Integer) docId, score + docs.retrieveFreq());
+					docs.findNext();
 				}
+				T docId = docs.retrieve(); // one more time becuase the loop doesnt take in account the last element
+					int score = scores.containsKey((Integer) docId) ?
+					 scores.get((Integer) docId) : 0;
+					scores.put((Integer) docId, score + docs.retrieveFreq());
 			}
 		}
 	

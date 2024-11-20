@@ -27,7 +27,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		return current.docId;
 	}
 
-	public Node<U> retrieveWords() {
+	public LinkedList<U> retrieveWords() {
 		return current.data;
 	}
 
@@ -49,11 +49,8 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		}
 		search(id);
 		if(current.docId.compareTo(id) == 0){
-			Node<U> temp = current.data;
-			while(temp.next != null){
-				temp = temp.next;
-			}
-			temp.next = new Node<U>(word);
+			LinkedList<U> temp = current.data;
+			temp.insert(word);
 			return;
 		}
 		current.next = new indexNode<T,U>(id, word);
@@ -80,19 +77,20 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 
 	public void display() {
 		
-		Node<U> temp;
+		LinkedList<U> temp;
 		indexNode<T, U> oldCurr = current;
 
 		current = head;
-
+		
 		while (current != null) {
 			temp = current.data;
 			System.out.println("DocID is " + current.docId);
-			while (temp !=null) {
-				System.out.println("  word is " + temp.data);
-				temp = temp.next;
+			while (!temp.last()) {
+				System.out.println("  word is " + temp.retrieve());
+				temp.findNext();
 				
 			}
+			System.out.println("  word is " + temp.retrieve()); // one more time becuase the loop doesnt take in account the last element
 			current = current.next;
 		}
 		current = oldCurr;
@@ -114,12 +112,16 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		LinkedList<T> docList = new LinkedList<>();
 		current = head;
 		while (current != null) {
-			Node<U> temp = current.data;
-			while (temp != null) {
-				if (temp.data.toString().equalsIgnoreCase(key)) {
+			LinkedList<U> temp = current.data;
+			temp.findFirst();
+			while (!temp.last()) {
+				if (temp.retrieve().toString().equalsIgnoreCase(key)) {    
 					docList.insert(current.docId);
 				}
-				temp = temp.next;
+				temp.findNext();
+			}
+			if (temp.retrieve().toString().equalsIgnoreCase(key)) { // one more time becuase the loop doesnt take in account the last element
+				docList.insert(current.docId);
 			}
 			current = current.next;
 		}
@@ -253,14 +255,20 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 			int score = scores.containsKey((Integer) docId) ?
 			 scores.get((Integer) docId) : 0;
 	
-			Node<U> words = current.data;
-			while (words != null) {
+			LinkedList<U> words = current.data;
+			words.findFirst();
+			while (!words.last()) {
 				for (String token : tokens) {
-					if (words.data.toString().equalsIgnoreCase(token)) {
+					if (words.retrieve().toString().equalsIgnoreCase(token)) {
 						score++;
 					}
 				}
-				words = words.next;
+				words.findNext();;
+			}
+			for (String token : tokens) {
+				if (words.retrieve().toString().equalsIgnoreCase(token)) { // one more time becuase the loop doesnt take in account the last element
+					score++;
+				}
 			}
 	
 			if (score > 0) {

@@ -147,9 +147,9 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		LinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
 
-		if (op.equals("AND")) {
+		if (op.equalsIgnoreCase("AND")) {
 			docStk.push(processAndQuery(left, right));
-		} else if (op.equals("OR")) {
+		} else if (op.equalsIgnoreCase("OR")) {
 			docStk.push(processOrQuery(left, right));
 		}
 	}
