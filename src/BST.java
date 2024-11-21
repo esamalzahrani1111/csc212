@@ -91,31 +91,21 @@ public class BST<T extends Comparable<T>> {
 			System.out.println("no node with this key");
 	}
 
-	public LinkedList<T> searchToList(String k) {
+	public fLinkedList<T> searchToList(String k) {
 
 		if (findKey(k)) {
-			LinkedList<T> DocList = new LinkedList<T>();
-
-			fLinkedList<T> temp = current.data;
-			temp.findFirst();
-			while (!temp.last()) {
-
-				DocList.insert(temp.retrieve());
-				temp.findNext();
-			}
-			DocList.insert(temp.retrieve());// one more time becuase the loop doesnt take in account the last element
-			return DocList;
+			return current.data;
 
 		} else {
 			System.out.println("no node with this key");
-			return new LinkedList<T>();
+			return new fLinkedList<T>();
 		}
 
 	}
 
-	public LinkedList<T> booleanQuery(String query) {
+	public fLinkedList<T> booleanQuery(String query) {
 
-		Stack<LinkedList<T>> docStk = new Stack<LinkedList<T>>();
+		Stack<fLinkedList<T>> docStk = new Stack<fLinkedList<T>>();
 		Stack<String> opStk = new Stack<String>();
 		String[] tokens = query.split("\\s+");
 
@@ -144,19 +134,22 @@ public class BST<T extends Comparable<T>> {
 		return docStk.pop();
 	}
 
-	private LinkedList<T> processAndQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processAndQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> List1 = word1;
-		LinkedList<T> List2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> List1 = word1;
+		fLinkedList<T> List2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		List1.findFirst();
 		List2.findFirst();
 
+		int size1 = List1.size();
+		int size2 = List2.size();
+
 		int i = 0;
 		int j = 0;
 
-		while ((i < List1.size()) && (j < List2.size())) {
+		while ((i < size1) && (j < size2 )) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
 				if(result.empty() || List1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(List1.retrieve());
@@ -177,11 +170,11 @@ public class BST<T extends Comparable<T>> {
 
 	}
 
-	private LinkedList<T> processOrQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processOrQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> list1 = word1;
-		LinkedList<T> list2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> list1 = word1;
+		fLinkedList<T> list2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		list1.findFirst();
 		list2.findFirst();
@@ -216,10 +209,10 @@ public class BST<T extends Comparable<T>> {
 		return result;
 	}
 
-	private void processLogicalOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
+	private void processLogicalOperation(Stack<fLinkedList<T>> docStk, Stack<String> opStk) {
 
-		LinkedList<T> right = docStk.pop();
-		LinkedList<T> left = docStk.pop();
+		fLinkedList<T> right = docStk.pop();
+		fLinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
 
 		if (op.equalsIgnoreCase("AND")) {
