@@ -1,1 +1,31 @@
-/bin/
+# General OS-specific files
+.DS_Store               # macOS Finder metadata
+Thumbs.db               # Windows image metadata
+desktop.ini             # Windows system file
+
+# IDE-specific files
+.classpath
+.project
+.settings/
+.vscode/
+
+# Java build artifacts
+*.class                 # Compiled class files
+*.jar                   # Java archive files
+*.war                   # Web application archive files
+*.ear                   # Enterprise archive files
+/bin/                   # Binary directory (common for Eclipse)
+/target/                # Maven output directory
+/build/                 # Gradle output directory
+/out/                   # General build output directory
+
+# Logs and temporary files
+*.log                   # Log files
+*.tmp                   # Temporary files
+*.swp                   # Swap files (e.g., from Vim)
+
+# Emacs temporary and backup files
+*.bak
+*#
+\#*\#
+*~
