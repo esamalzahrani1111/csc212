@@ -1,6 +1,6 @@
 public class indexNode<T,U> {
     public T docId;
-    public Node<U> data;
+    public LinkedList<U> data;
 	public indexNode<T,U> next;
 
 	public indexNode () {
@@ -11,7 +11,7 @@ public class indexNode<T,U> {
 
 	public indexNode (T id,U word) {
         docId = id;
-		data = new Node<U>(word);
+		data = new LinkedList<U>(word);
 		next = null;
 	}
 

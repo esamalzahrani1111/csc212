@@ -7,7 +7,11 @@ public class fLinkedList<T> {
 	 head = null;
 	 current=null;
  }
- 
+ public fLinkedList(T val){
+   head=null;
+   current = null;
+   insert(val);
+ }
  public boolean empty() {
 	 return head ==null;
  }
@@ -23,9 +27,16 @@ public class fLinkedList<T> {
  public void findNext() {	 
 	 current = current.next;
  }
+ public void addfreq(){
+	current.freq++;
+ }
  
  public T retrieve() {
 	 return current.data;
+ }
+ public int retrieveFreq(){
+return current.freq;
+
  }
  
  public void update(T val) { 	 

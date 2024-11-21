@@ -30,7 +30,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		return current.word;
 	}
 
-	public fNode retrieveDocs() {	
+	public fLinkedList<T> retrieveDocs() {	
 		return current.data;
 	}
 
@@ -52,16 +52,16 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		}
 		search(key);
 		if(current.word.compareToIgnoreCase(key) == 0){
-			fNode<T> temp = current.data;
-			while (temp.next != null && temp.data.compareTo(doc) != 0){
-				temp = temp.next;
+			fLinkedList<T> temp = current.data;
+			while (!temp.last() && temp.retrieve().compareTo(doc) != 0){
+				temp.findNext();
 			}
-			if(temp.data.compareTo(doc) == 0)
+			if(temp.retrieve().compareTo(doc) == 0)
 			{
-				temp.freq++;
+				temp.addfreq();
 				return;
 			}else
-			temp.next = new fNode<T>(doc);
+			temp.insert(doc);
 			return;
 		}
 		
@@ -74,7 +74,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 	public void display() {
 		
-		fNode<T> temp;
+		fLinkedList<T> temp;
 		invertedNode<T> oldCurr = current;
 
 
@@ -82,13 +82,16 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 		while (current != null) {
 		temp = current.data;
+		temp.findFirst();
 		System.out.print("word is " + current.word +" docs are : \n");
-		while (temp !=null) {
-			System.out.print(temp.data+",");
+		while (!temp.last()) {
+			System.out.print(temp.retrieve()+",");
 			System.out.println("");
-			temp = temp.next;
+			temp.findNext();
 			
 		}
+		System.out.print(temp.retrieve()+",");
+			System.out.println("");
 		current = current.next;
 	}
 	current = oldCurr;
@@ -106,8 +109,8 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		return counter;
 	}
 
-	public LinkedList<T> booleanQuery(String query) {
-		Stack<LinkedList<T>> docStk = new Stack<>();
+	public fLinkedList<T> booleanQuery(String query) {
+		Stack<fLinkedList<T>> docStk = new Stack<>();
 		Stack<String> opStk = new Stack<>();
 		String[] tokens = query.split("\\s+");
 
@@ -129,36 +132,31 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		return docStk.pop();
 	}
 
-	public LinkedList<T> searchToList(String key) {
+	public fLinkedList<T> searchToList(String key) {
 		search(key);
-		LinkedList<T> docList = new LinkedList<>();
 		if (current != null && current.word.compareToIgnoreCase(key) == 0) {
-			fNode<T> temp = current.data;
-			while (temp != null) {
-				docList.insert(temp.data);
-				temp = temp.next;
-			}
+			return current.data;
 		}
-		return docList;
+		return new fLinkedList<>();
 	}
 
-	private void processLogicalOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
-		LinkedList<T> right = docStk.pop();
-		LinkedList<T> left = docStk.pop();
+	private void processLogicalOperation(Stack<fLinkedList<T>> docStk, Stack<String> opStk) {
+		fLinkedList<T> right = docStk.pop();
+		fLinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
 
-		if (op.equals("AND")) {
+		if (op.equalsIgnoreCase("AND")) {
 			docStk.push(processAndQuery(left, right));
-		} else if (op.equals("OR")) {
+		} else if (op.equalsIgnoreCase("OR")) {
 			docStk.push(processOrQuery(left, right));
 		}
 	}
 
-	private LinkedList<T> processAndQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processAndQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> List1 = word1;
-		LinkedList<T> List2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> List1 = word1;
+		fLinkedList<T> List2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		List1.findFirst();
 		List2.findFirst();
@@ -168,6 +166,7 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 		while ((i < List1.size()) && (j < List2.size())) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
+				if(result.empty() || List1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(List1.retrieve());
 				List1.findNext();
 				List2.findNext();
@@ -187,11 +186,11 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 	}
 
-	private LinkedList<T> processOrQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processOrQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> list1 = word1;
-		LinkedList<T> list2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> list1 = word1;
+		fLinkedList<T> list2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		list1.findFirst();
 		list2.findFirst();
@@ -204,14 +203,17 @@ public class invertedLinkedList<T extends Comparable<T>> {
 
 		while (i < size1 || j < size2) {
 			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				i++;
 			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
+				if(result.empty() || list2.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list2.retrieve());
 				list2.findNext();
 				j++;
 			} else {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				list2.findNext();
@@ -232,8 +234,8 @@ public class invertedLinkedList<T extends Comparable<T>> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public LinkedList<T> rankedQuery(String query) {
-		LinkedList<T> results = new LinkedList<>();
+	public fLinkedList<T> rankedQuery(String query) {
+		fLinkedList<T> results = new fLinkedList<>();
 		HashMap scores = new HashMap(100);
 		String[] tokens = query.split("\\s+");
 
@@ -241,14 +243,20 @@ public class invertedLinkedList<T extends Comparable<T>> {
 			invertedNode<T> current = head;
 			while (current != null) {
 				if (current.word.equalsIgnoreCase(token)) {
-					fNode<T> docs = current.data;
-					while (docs != null) {
-						T docId = docs.data;
+					fLinkedList<T> docs = current.data;
+					docs.findFirst();
+					while (!docs.last()) {
+						T docId = docs.retrieve();
 						int score = scores.containsKey((Integer) docId) ?
 						 scores.get((Integer) docId) : 0;
-						scores.put((Integer) docId, score + docs.freq);
-						docs = docs.next;
+						scores.put((Integer) docId, score + docs.retrieveFreq());
+						docs.findNext();;
 					}
+					T docId = docs.retrieve();
+						int score = scores.containsKey((Integer) docId) ?
+						 scores.get((Integer) docId) : 0;
+						scores.put((Integer) docId, score + docs.retrieveFreq());
+						docs.findNext();;
 				}
 				current = current.next;
 			}
@@ -261,6 +269,11 @@ public class invertedLinkedList<T extends Comparable<T>> {
 	
 		for (int docId : docIds) {
 			results.insert((T) Integer.valueOf(docId)); 
+		}
+		int sizeOfR = docIds.length;
+		System.out.println("DocID\t\tScore");
+		for (int i =0;i<sizeOfR;i++){
+			System.out.println(docIds[i] + "\t\t" + docScores[i]);
 		}
 	
 		return results;

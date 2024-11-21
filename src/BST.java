@@ -14,8 +14,8 @@ public class BST<T extends Comparable<T>> {
 		return false;
 	}
 
-	public T retrieve() {
-		return current.data.data;
+	public fLinkedList<T> retrieve() {
+		return current.data;
 	}
 
 	public boolean findKey(String targetKey) {
@@ -39,20 +39,23 @@ public class BST<T extends Comparable<T>> {
 		return false;
 	}
 
+
 	public boolean insert(String k, T val) {
 		BSTNode<T> p, q = current;
 
 		if (findKey(k)) {
 
-			fNode<T> temp;
-			temp = current.data;
-			while (temp.next != null && temp.data.compareTo(val)!=0) {
-				temp = temp.next;
-			}
-			if(temp.data.compareTo(val)==0)
-			temp.freq++;
-			else
-			temp.next = new fNode<T>(val);
+			// fNode<T> temp;
+			// temp = current.data;
+			// while (temp.next != null && temp.data.compareTo(val)!=0) {
+			// 	temp = temp.next;
+			// }
+			// if(temp.data.compareTo(val)==0)
+			// temp.freq++;
+			// else
+			// temp.next = new fNode<T>(val);
+			fLinkedList<T> temp = current.data;
+			temp.insert(val);
 			current = q; // findKey() modified current
 			return false; // key already in the BST
 		}
@@ -76,41 +79,33 @@ public class BST<T extends Comparable<T>> {
 
 		if (findKey(k)) {
 
-			fNode<T> temp = current.data;
-
-			while (temp != null) {
-				System.out.print(temp.data + ",");
-				temp = temp.next;
+			fLinkedList<T> temp = current.data;
+			temp.findFirst();
+			while (!temp.last()) {
+				System.out.print(temp.retrieve() + ",");
+				temp.findNext();
 			}
+			System.out.print(temp.retrieve() + ",");// one more time becuase the loop doesnt take in account the last element
 
 		} else
 			System.out.println("no node with this key");
 	}
 
-	public LinkedList<T> searchToList(String k) {
+	public fLinkedList<T> searchToList(String k) {
 
 		if (findKey(k)) {
-			LinkedList<T> DocList = new LinkedList<T>();
-
-			fNode<T> temp = current.data;
-
-			while (temp != null) {
-
-				DocList.insert(temp.data);
-				temp = temp.next;
-			}
-			return DocList;
+			return current.data;
 
 		} else {
 			System.out.println("no node with this key");
-			return null;
+			return new fLinkedList<T>();
 		}
 
 	}
 
-	public LinkedList<T> booleanQuery(String query) {
+	public fLinkedList<T> booleanQuery(String query) {
 
-		Stack<LinkedList<T>> docStk = new Stack<LinkedList<T>>();
+		Stack<fLinkedList<T>> docStk = new Stack<fLinkedList<T>>();
 		Stack<String> opStk = new Stack<String>();
 		String[] tokens = query.split("\\s+");
 
@@ -139,20 +134,24 @@ public class BST<T extends Comparable<T>> {
 		return docStk.pop();
 	}
 
-	private LinkedList<T> processAndQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processAndQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> List1 = word1;
-		LinkedList<T> List2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> List1 = word1;
+		fLinkedList<T> List2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		List1.findFirst();
 		List2.findFirst();
 
+		int size1 = List1.size();
+		int size2 = List2.size();
+
 		int i = 0;
 		int j = 0;
 
-		while ((i < List1.size()) && (j < List2.size())) {
+		while ((i < size1) && (j < size2 )) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
+				if(result.empty() || List1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(List1.retrieve());
 				List1.findNext();
 				List2.findNext();
@@ -171,11 +170,11 @@ public class BST<T extends Comparable<T>> {
 
 	}
 
-	private LinkedList<T> processOrQuery(LinkedList<T> word1, LinkedList<T> word2) {
+	private fLinkedList<T> processOrQuery(fLinkedList<T> word1, fLinkedList<T> word2) {
 
-		LinkedList<T> list1 = word1;
-		LinkedList<T> list2 = word2;
-		LinkedList<T> result = new LinkedList<T>();
+		fLinkedList<T> list1 = word1;
+		fLinkedList<T> list2 = word2;
+		fLinkedList<T> result = new fLinkedList<T>();
 
 		list1.findFirst();
 		list2.findFirst();
@@ -188,14 +187,17 @@ public class BST<T extends Comparable<T>> {
 
 		while (i < size1 || j < size2) {
 			if (i < size1 && (j >= size2 || list1.retrieve().compareTo(list2.retrieve()) < 0)) {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				i++;
 			} else if (j < size2 && (i >= size1 || list1.retrieve().compareTo(list2.retrieve()) > 0)) {
+				if(result.empty() || list2.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list2.retrieve());
 				list2.findNext();
 				j++;
 			} else {
+				if(result.empty() || list1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(list1.retrieve());
 				list1.findNext();
 				list2.findNext();
@@ -207,10 +209,10 @@ public class BST<T extends Comparable<T>> {
 		return result;
 	}
 
-	private void processLogicalOperation(Stack<LinkedList<T>> docStk, Stack<String> opStk) {
+	private void processLogicalOperation(Stack<fLinkedList<T>> docStk, Stack<String> opStk) {
 
-		LinkedList<T> right = docStk.pop();
-		LinkedList<T> left = docStk.pop();
+		fLinkedList<T> right = docStk.pop();
+		fLinkedList<T> left = docStk.pop();
 		String op = opStk.pop();
 
 		if (op.equalsIgnoreCase("AND")) {
@@ -236,25 +238,33 @@ public class BST<T extends Comparable<T>> {
 	
 		for (String token : tokens) {
 			if (findKey(token)) {
-				fNode<T> docs = current.data;
-				while (docs != null) {
-					T docId = docs.data;
+				fLinkedList<T> docs = current.data;
+				docs.findFirst();
+				while (!docs.last()) {
+					T docId = docs.retrieve();
 					int score = scores.containsKey((Integer) docId) ?
 					 scores.get((Integer) docId) : 0;
-					scores.put((Integer) docId, score + docs.freq);
-					docs = docs.next;
+					scores.put((Integer) docId, score + docs.retrieveFreq());
+					docs.findNext();
 				}
+				T docId = docs.retrieve(); // one more time becuase the loop doesnt take in account the last element
+					int score = scores.containsKey((Integer) docId) ?
+					 scores.get((Integer) docId) : 0;
+					scores.put((Integer) docId, score + docs.retrieveFreq());
 			}
 		}
 	
 		int[] docIds = scores.keys();
-		System.out.println("size of docIds array : "+ docIds.length);;
 		int[] docScores = scores.values();
 	
 		SortUtils.mergeSort(docIds, docScores, 0, docIds.length - 1);
-	
 		for (int docId : docIds) {
-			results.insert((T) Integer.valueOf(docId)); 
+				results.insert((T) Integer.valueOf(docId)); 
+			}
+			int sizeOfR = docIds.length;
+		System.out.println("DocID\t\tScore");
+		for (int i =0;i<sizeOfR;i++){
+			System.out.println(docIds[i] + "\t\t" + docScores[i]);
 		}
 	
 		return results;
