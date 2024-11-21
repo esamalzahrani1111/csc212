@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class test {
 	public static void main(String[] args) {
 		int docsNumber=0;
+		int numOfVocabulary=0;
+		int numOfTokens=0;
 		System.out.println("Current Working Directory: " + new File(".").getAbsolutePath());
 
 		String file = "src//dataset.csv";
@@ -49,7 +51,7 @@ public class test {
 
 			for (String index : temp) {
 				index = index.replaceAll("[^a-zA-Z0-9]", "").toLowerCase(); //merge it with reading 
-
+				numOfVocabulary++;
 				while ((removeLine = remover.readLine()) != null) { // add if true stop
 
 					if (index.equalsIgnoreCase(removeLine))
@@ -266,6 +268,7 @@ public class test {
 		////                                                                                  TEST ENDS HERE
 		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		/// 
+		System.out.println(docsNumber + " " + numOfVocabulary);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
