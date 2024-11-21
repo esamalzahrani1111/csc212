@@ -1,7 +1,7 @@
 
 public class invertedNode<T> {
     public String word;
-	public fNode<T> data;
+	public fLinkedList<T> data;
 	public invertedNode<T> next;
 	
 	
@@ -13,7 +13,8 @@ public class invertedNode<T> {
 	
 	public invertedNode(String word,T val) {
 		this.word = word;
-		data = new fNode<T>(val);
+		data = new fLinkedList<T>();
+		data.insert(val);
 		next =null;
 	}
 	

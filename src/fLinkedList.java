@@ -27,6 +27,9 @@ public class fLinkedList<T> {
  public void findNext() {	 
 	 current = current.next;
  }
+ public void addfreq(){
+	current.freq++;
+ }
  
  public T retrieve() {
 	 return current.data;
