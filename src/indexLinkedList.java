@@ -47,13 +47,14 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 			current = head = new indexNode<T, U>(id, word);
 			return;
 		}
-		search(id);
+		//search(id);
 		if(current.docId.compareTo(id) == 0){
 			LinkedList<U> temp = current.data;
 			temp.insert(word);
 			return;
 		}
 		current.next = new indexNode<T,U>(id, word);
+		current = current.next;
 	}
 
 	public void remove () {

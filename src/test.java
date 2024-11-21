@@ -74,7 +74,7 @@ public class test {
 
 
 			
-			while((line = reader.readLine()).compareTo(",,") != 0 ){
+			while((line = reader.readLine()).compareTo(",,") != 0){
 
 				firsToOccur = line.indexOf(",");
 				line = line.substring(firsToOccur); //change to first occurrence of ,
@@ -213,7 +213,7 @@ public class test {
 			System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
 			normalIndex.rankedQuery("business world market");
 			System.out.println("SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||SEPARATOR|||");
-			 System.out.println("################################################################################################################################################################################################");
+			//  System.out.println("################################################################################################################################################################################################");
 			// System.out.println("TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX TESTING INVERTED INDEX ");
 			// System.out.println("BOOLEAN QUERYS");
 			// invertedIndex.booleanQuery("market and sports").display();
@@ -263,8 +263,6 @@ public class test {
 		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		////                                                                                  TEST ENDS HERE
 		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		/// 
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
