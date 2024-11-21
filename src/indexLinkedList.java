@@ -27,7 +27,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		return current.docId;
 	}
 
-	public LinkedList<U> retrieveWords() {
+	public BSTWORDS retrieveWords() {
 		return current.data;
 	}
 
@@ -49,8 +49,8 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		}
 		search(id);
 		if(current.docId.compareTo(id) == 0){
-			LinkedList<U> temp = current.data;
-			temp.insert(word);
+			BSTWORDS temp = current.data;
+			temp.insert(word.toString());
 			return;
 		}
 		current.next = new indexNode<T,U>(id, word);
@@ -75,26 +75,26 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 			current = current.next;
 	}
 
-	public void display() {
+	// public void display() {
 		
-		LinkedList<U> temp;
-		indexNode<T, U> oldCurr = current;
+	// 	LinkedList<U> temp;
+	// 	indexNode<T, U> oldCurr = current;
 
-		current = head;
+	// 	current = head;
 		
-		while (current != null) {
-			temp = current.data;
-			System.out.println("DocID is " + current.docId);
-			while (!temp.last()) {
-				System.out.println("  word is " + temp.retrieve());
-				temp.findNext();
+	// 	while (current != null) {
+	// 		temp = current.data;
+	// 		System.out.println("DocID is " + current.docId);
+	// 		while (!temp.last()) {
+	// 			System.out.println("  word is " + temp.retrieve());
+	// 			temp.findNext();
 				
-			}
-			System.out.println("  word is " + temp.retrieve()); // one more time becuase the loop doesnt take in account the last element
-			current = current.next;
-		}
-		current = oldCurr;
-	}
+	// 		}
+	// 		System.out.println("  word is " + temp.retrieve()); // one more time becuase the loop doesnt take in account the last element
+	// 		current = current.next;
+	// 	}
+	// 	current = oldCurr;
+	// }
 
 	public int size() {
 		int counter = 0;
@@ -111,18 +111,22 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 	public LinkedList<T> searchToList(String key) {
 		LinkedList<T> docList = new LinkedList<>();
 		current = head;
+		BSTWORDS temp;
 		while (current != null) {
-			LinkedList<U> temp = current.data;
-			temp.findFirst();
-			while (!temp.last()) {
-				if (temp.retrieve().toString().equalsIgnoreCase(key)) {    
-					docList.insert(current.docId);
-				}
-				temp.findNext();
-			}
-			if (temp.retrieve().toString().equalsIgnoreCase(key)) { // one more time becuase the loop doesnt take in account the last element
-				docList.insert(current.docId);
-			}
+			// LinkedList<U> temp = current.data;
+			// temp.findFirst();
+			// while (!temp.last()) {
+			// 	if (temp.retrieve().toString().equalsIgnoreCase(key)) {    
+			// 		docList.insert(current.docId);
+			// 	}
+			// 	temp.findNext();
+			// }
+			// if (temp.retrieve().toString().equalsIgnoreCase(key)) { // one more time becuase the loop doesnt take in account the last element
+			// 	docList.insert(current.docId);
+			// }
+			temp = current.data;
+			if (temp.findKey(key))
+			docList.insert(current.docId);
 			current = current.next;
 		}
 		return docList;
@@ -166,7 +170,10 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		int i = 0;
 		int j = 0;
 
-		while ((i < List1.size()) && (j < List2.size())) {
+		int size1 = List1.size();
+		int size2 = List2.size();
+
+		while ((i < size1) && (j < size2)) {
 			if ((List1).retrieve().equals(List2.retrieve())) {
 				if(result.empty() || List1.retrieve().compareTo(result.retrieve()) != 0)
 				result.insert(List1.retrieve());
@@ -259,22 +266,12 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 			int score = scores.containsKey((Integer) docId) ?
 			 scores.get((Integer) docId) : 0;
 	
-			LinkedList<U> words = current.data;
-			words.findFirst();
-			while (!words.last()) {
+			BSTWORDS words = current.data;
 				for (String token : tokens) {
-					if (words.retrieve().toString().equalsIgnoreCase(token)) {
-						score++;
+					if (words.findKey(token)) {
+						score = score + words.retrieveFreq();
 					}
 				}
-				words.findNext();;
-			}
-			for (String token : tokens) {
-				if (words.retrieve().toString().equalsIgnoreCase(token)) { // one more time becuase the loop doesnt take in account the last element
-					score++;
-				}
-			}
-	
 			if (score > 0) {
 				scores.put((Integer) docId, score);
 			}

@@ -1,6 +1,6 @@
 public class indexNode<T,U> {
     public T docId;
-    public LinkedList<U> data;
+    public BSTWORDS data;
 	public indexNode<T,U> next;
 
 	public indexNode () {
@@ -11,7 +11,8 @@ public class indexNode<T,U> {
 
 	public indexNode (T id,U word) {
         docId = id;
-		data = new LinkedList<U>(word);
+		data = new BSTWORDS();
+		data.insert(word.toString());
 		next = null;
 	}
 

@@ -39,6 +39,7 @@ public class BST<T extends Comparable<T>> {
 		return false;
 	}
 
+
 	public boolean insert(String k, T val) {
 		BSTNode<T> p, q = current;
 
