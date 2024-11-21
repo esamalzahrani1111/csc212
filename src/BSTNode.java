@@ -16,4 +16,5 @@ public class BSTNode <T extends Comparable<T>> {
 		left = l;
 		right = r;
 	}
+	
 }
