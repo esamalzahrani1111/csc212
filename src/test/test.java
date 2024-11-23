@@ -269,9 +269,13 @@ public class test {
 		//// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		/// 
 		System.out.println(docsNumber + " " + numOfVocabulary);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
+		//close the readers
+		reader.close();
+		remover.close();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 
 	}
 }

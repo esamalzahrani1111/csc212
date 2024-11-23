@@ -112,11 +112,11 @@ public class invertedLinkedList<T extends Comparable<T>> {
 	public fLinkedList<T> booleanQuery(String query) {
 		Stack<fLinkedList<T>> docStk = new Stack<>();
 		Stack<String> opStk = new Stack<>();
-		String[] tokens = query.split("\\s+");
+		String[] tokens = QueryUtils.tokenizeQuery(query);
 
 		for (String token : tokens) {
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				if (!opStk.empty() && precedence(opStk.peek()) > precedence(token)) {
+				if (!opStk.empty() && QueryUtils.precedence(opStk.peek()) > QueryUtils.precedence(token)) {
 					processLogicalOperation(docStk, opStk);
 				} else {
 					opStk.push(token);
@@ -223,14 +223,6 @@ public class invertedLinkedList<T extends Comparable<T>> {
 		}
 
 		return result;
-	}
-
-	private int precedence(String op) {
-		if (op.equals("AND"))
-			return 2;
-		if (op.equals("OR"))
-			return 1;
-		return 0;
 	}
 
 	@SuppressWarnings("unchecked")

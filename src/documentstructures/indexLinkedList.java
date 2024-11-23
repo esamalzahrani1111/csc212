@@ -8,11 +8,11 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 	} 
 
 	public boolean empty() {
-		return head ==null;
+		return (head == null);
 	}
 
 	public boolean last() {
-		return current.next ==null;
+		return (current.next == null);
 	}
 
 	public void findFirst() {
@@ -133,11 +133,11 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 
 		Stack<LinkedList<T>> docStk = new Stack<LinkedList<T>>();
 		Stack<String> opStk = new Stack<String>();
-		String[] tokens = query.split("\\s+");
+		String[] tokens = QueryUtils.tokenizeQuery(query);
 
 		for (String token : tokens) {
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
+				if (!opStk.empty() && (QueryUtils.precedence(opStk.peek()) > QueryUtils.precedence(token))) {
 					processLogicalOperation(docStk, opStk);
 				}
 				else {
@@ -242,13 +242,7 @@ public class indexLinkedList<T extends Comparable<T>,U> {
 		}
 	}
 
-	private int precedence(String op) {
-		if (op.equalsIgnoreCase("AND"))
-			return 2;
-		if (op.equalsIgnoreCase("OR"))
-			return 1;
-		return 0;
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	public LinkedList<T> rankedQuery(String query) {

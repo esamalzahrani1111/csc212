@@ -44,16 +44,6 @@ public class BST<T extends Comparable<T>> {
 		BSTNode<T> p, q = current;
 
 		if (findKey(k)) {
-
-			// fNode<T> temp;
-			// temp = current.data;
-			// while (temp.next != null && temp.data.compareTo(val)!=0) {
-			// 	temp = temp.next;
-			// }
-			// if(temp.data.compareTo(val)==0)
-			// temp.freq++;
-			// else
-			// temp.next = new fNode<T>(val);
 			fLinkedList<T> temp = current.data;
 			temp.insert(val);
 			current = q; // findKey() modified current
@@ -107,29 +97,24 @@ public class BST<T extends Comparable<T>> {
 
 		Stack<fLinkedList<T>> docStk = new Stack<fLinkedList<T>>();
 		Stack<String> opStk = new Stack<String>();
-		String[] tokens = query.split("\\s+");
+		String[] tokens = QueryUtils.tokenizeQuery(query);
 
 		for (String token : tokens) {
-
-
 			if (token.equalsIgnoreCase("AND") || token.equalsIgnoreCase("OR")) {
-				
-				if (!opStk.empty() && (precedence(opStk.peek()) > precedence(token))) {
-				
+				if (!opStk.empty() && (QueryUtils.precedence(opStk.peek()) > QueryUtils.precedence(token))) {
 					processLogicalOperation(docStk, opStk);
-			}
-				else{
-				    opStk.push(token);
-					
 				}
-			} else
+				else {
+				    opStk.push(token);
+				}
+			} 
+			else {
 				docStk.push(searchToList(token));
+			}
 		}
 
 		while (!opStk.empty()) {
-			
 			processLogicalOperation(docStk, opStk);
-			
 		}
 		return docStk.pop();
 	}
@@ -220,14 +205,6 @@ public class BST<T extends Comparable<T>> {
 		} else if (op.equalsIgnoreCase("OR")) {
 			docStk.push(processOrQuery(left, right));
 		}
-	}
-
-	private int precedence(String op) {
-		if (op.equalsIgnoreCase("AND"))
-			return 2;
-		if (op.equalsIgnoreCase("OR"))
-			return 1;
-		return 0;
 	}
 
 	@SuppressWarnings("unchecked")
